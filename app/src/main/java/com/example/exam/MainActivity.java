@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.exam.data.ShopItem;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,14 +23,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView mainRecyclerView = findViewById(R.id.recyclerview_main);
-        mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        String[] itemNames = new String[]{"商品1", "商品2", "商品3"};
-        CustomAdapter customAdapter = new CustomAdapter(itemNames);
-        mainRecyclerView.setAdapter(customAdapter);
+        ArrayList<ShopItem> shopItems = new ArrayList<>();
+        for (int iLoop = 0; iLoop < 20; iLoop++) {
+            shopItems.add(new ShopItem("青椒", 1.5, R.drawable.qingjiao));
+            shopItems.add(new ShopItem("萝卜", 2.5, R.drawable.luobo));
+            shopItems.add(new ShopItem("白菜", 2.5, R.drawable.baicai));
+        }
+
+        ShopItemAdapter shopItemAdapter = new ShopItemAdapter(shopItems);
+        mainRecyclerView.setAdapter(shopItemAdapter);
     }
-    public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-        private String[] localDataSet;
+    public static class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ViewHolder> {
+        private ArrayList<ShopItem> shopItemArrayList;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView textViewName;
@@ -53,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 return imageViewItem;
             }
         }
-        public CustomAdapter(String[] dataSet) {
-            localDataSet = dataSet;
+        public ShopItemAdapter(ArrayList<ShopItem> shopItems) {
+            shopItemArrayList = shopItems;
         }
 
         @Override
@@ -67,13 +77,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-            viewHolder.getTextViewName().setText(localDataSet[position]);
-            viewHolder.getTextViewPrice().setText("123.00元");
+            viewHolder.getTextViewName().setText(shopItemArrayList.get(position).getName());
+            viewHolder.getTextViewPrice().setText(shopItemArrayList.get(position).getPrice()+"");
+            viewHolder.getImageViewItem().setImageResource(shopItemArrayList.get(position).getImageResourceId());
         }
 
         @Override
         public int getItemCount() {
-            return localDataSet.length;
+            return shopItemArrayList.size();
         }
     }
 }
