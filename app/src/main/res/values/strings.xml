@@ -3,4 +3,5 @@
     <string name="hello_string">Hello</string>
     <string name="string_item_price">item_price</string>
     <string name="string_item_name">item_name</string>
+    <string name="string_ok">ok</string>
 </resources>
