@@ -24,16 +24,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textview_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/string_item_name" />
+
+            <TextView
                 android:id="@+id/textview_item_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/string_item_price" />
 
-            <TextView
-                android:id="@+id/textview_item_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/string_item_name" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

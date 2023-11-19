@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.exam.data.DataBank;
 import com.example.exam.data.ShopItem;
 
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> addItemLauncher;
+    ActivityResultLauncher<Intent> updateItemLauncher;
+    private ArrayList<ShopItem> shopItems = new ArrayList<>();
+    private ShopItemAdapter shopItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView mainRecyclerView = findViewById(R.id.recyclerview_main);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        ArrayList<ShopItem> shopItems = new ArrayList<>();
-        shopItems.add(new ShopItem("青椒", 1.5, R.drawable.qingjiao));
-        shopItems.add(new ShopItem("萝卜", 2.5, R.drawable.luobo));
-        shopItems.add(new ShopItem("白菜", 2.5, R.drawable.baicai));
+        shopItems = new DataBank().loadShopItems(MainActivity.this);
 
-        ShopItemAdapter shopItemAdapter = new ShopItemAdapter(shopItems);
+        if (shopItems.size() == 0) {
+            shopItems.add(new ShopItem("青椒", 1.5, R.drawable.qingjiao));
+        }
+
+        shopItemAdapter = new ShopItemAdapter(shopItems);
         mainRecyclerView.setAdapter(shopItemAdapter);
 
         registerForContextMenu(mainRecyclerView);
@@ -58,6 +64,30 @@ public class MainActivity extends AppCompatActivity {
                         shopItems.add(new ShopItem(name, price, R.drawable.baicai));
                         shopItemAdapter.notifyItemInserted(shopItems.size());
 
+                        new DataBank().SaveShopItems(MainActivity.this, shopItems);
+
+                    } else if (result.getResultCode() == Activity.RESULT_CANCELED) {}
+                }
+        );
+
+        updateItemLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        int position = data.getIntExtra("position", 0);
+                        String name = data.getStringExtra("name");
+                        String priceText = data.getStringExtra("price");
+
+                        double price = Double.parseDouble(priceText);
+                        ShopItem shopItem = shopItems.get(position);
+                        shopItem.setName(name);
+                        shopItem.setPrice(price);
+
+                        shopItemAdapter.notifyItemChanged(position);
+
+                        new DataBank().SaveShopItems(MainActivity.this, shopItems);
+
                     } else if (result.getResultCode() == Activity.RESULT_CANCELED) {}
                 }
         );
@@ -65,15 +95,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case 0:
-                Intent intent = new Intent(this, ShopItemDetailsActivity.class);
-                addItemLauncher.launch(intent);
+                Intent intentAdd = new Intent(this, ShopItemDetailsActivity.class);
+                addItemLauncher.launch(intentAdd);
                 break;
             case 1:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Delete Data");
+                builder.setMessage("Are you sure to delete this data?");
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    shopItems.remove(item.getOrder());
+                    shopItemAdapter.notifyItemRemoved(item.getOrder());
+                    new DataBank().SaveShopItems(MainActivity.this, shopItems);
+                });
+                builder.setNegativeButton("No", (dialog, which) -> {});
+                builder.show();
                 break;
             case 2:
+                Intent intentUpdate = new Intent(this, ShopItemDetailsActivity.class);
+                ShopItem shopItem = shopItems.get(item.getOrder());
+                intentUpdate.putExtra("name", shopItem.getName());
+                intentUpdate.putExtra("price", shopItem.getPrice());
+                intentUpdate.putExtra("position", item.getOrder());
+                updateItemLauncher.launch(intentUpdate);
                 break;
             default:
                 return super.onContextItemSelected(item);
