@@ -7,6 +7,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import com.tencent.tencentmap.mapsdk.maps.CameraUpdate;
+import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory;
+import com.tencent.tencentmap.mapsdk.maps.MapView;
+import com.tencent.tencentmap.mapsdk.maps.model.AlphaAnimation;
+import com.tencent.tencentmap.mapsdk.maps.model.Animation;
+import com.tencent.tencentmap.mapsdk.maps.model.BitmapDescriptor;
+import com.tencent.tencentmap.mapsdk.maps.model.BitmapDescriptorFactory;
+import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition;
+import com.tencent.tencentmap.mapsdk.maps.model.LatLng;
+import com.tencent.tencentmap.mapsdk.maps.model.Marker;
+import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,33 +28,15 @@ import android.view.ViewGroup;
  */
 public class BaiduMapFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private MapView mMapView = null;
 
     public BaiduMapFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BaiduMapFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BaiduMapFragment newInstance(String param1, String param2) {
+    public static BaiduMapFragment newInstance() {
         BaiduMapFragment fragment = new BaiduMapFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,8 +45,6 @@ public class BaiduMapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -59,6 +52,61 @@ public class BaiduMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_baidu_map, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_baidu_map, container, false);
+        FrameLayout frameLayout = rootView.findViewById(R.id.map);
+
+        // 创建地图实例
+        mMapView = new MapView(requireActivity());
+        frameLayout.addView(mMapView);
+
+        // 添加图片标记
+        LatLng point = new LatLng(22.249942, 113.534341);
+
+        CameraUpdate cameraSigma =
+                CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                        point, //新的中心点坐标
+                        18,     //新的缩放级别
+                        0f,     //俯仰角 0~45° (垂直地图时为0)
+                        0f));   //偏航角 0~360° (正北方为0)
+        mMapView.getMap().moveCamera(cameraSigma);
+
+        // 创建一个Marker对象
+        MarkerOptions markerOptions = new MarkerOptions(point)
+                .title("标记标题");
+
+        // 添加标记到地图上
+        Marker marker = mMapView.getMap().addMarker(markerOptions);
+
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mMapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mMapView.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
     }
 }

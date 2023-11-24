@@ -35,7 +35,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private String[] tabHeaderStrings = {"Shopping items", "Baidu maps", "News"};
+    private String[] tabHeaderStrings = {"Shopping items", "Tencent maps", "News"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
