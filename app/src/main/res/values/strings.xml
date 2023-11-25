@@ -10,4 +10,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_task">任务</string>
+    <string name="title_award">奖励</string>
+    <string name="title_statistics">统计</string>
+    <string name="title_my">我的</string>
 </resources>
