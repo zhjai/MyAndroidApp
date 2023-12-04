@@ -10,7 +10,7 @@
         android:id="@+id/task_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/task_viepage2"
+        app:layout_constraintBottom_toTopOf="@id/task_viewpage2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@color/white"
@@ -18,7 +18,7 @@
         app:tabMode="fixed"
         app:tabTextColor="@color/black" />
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/task_viepage2"
+        android:id="@+id/task_viewpage2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/task_tablayout"

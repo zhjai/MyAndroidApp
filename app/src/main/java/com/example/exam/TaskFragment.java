@@ -56,7 +56,7 @@ public class TaskFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager2 = view.findViewById(R.id.task_viepage2);
+        viewPager2 = view.findViewById(R.id.task_viewpage2);
         viewPager2.setSaveEnabled(false);
         tabLayout = view.findViewById(R.id.task_tablayout);
         List<String> titleList = initPageTitleList();
