@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/navigation_my"
         android:name="com.example.exam.MyFragment"
-        android:label="@string/title_app"
+        android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

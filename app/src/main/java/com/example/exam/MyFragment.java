@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.example.exam.data.MyFragmentAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,13 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my, container, false);
+
+        ListView listView = rootView.findViewById(R.id.my_fragment_list);
+        String[] items = {"帮助", "关于", "版本更新"};
+        MyFragmentAdapter adapter = new MyFragmentAdapter(getContext(), items);
+        listView.setAdapter(adapter);
+
+        return rootView;
     }
 }

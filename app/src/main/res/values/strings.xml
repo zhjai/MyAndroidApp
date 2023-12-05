@@ -25,4 +25,5 @@
     <string name="add_award">添加奖励</string>
     <string name="award_title">奖励标题</string>
     <string name="award_score">奖励分数</string>
+    <string name="settings">设置</string>
 </resources>
