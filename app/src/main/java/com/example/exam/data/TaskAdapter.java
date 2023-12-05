@@ -1,6 +1,8 @@
 package com.example.exam.data;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -30,7 +32,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         TaskItem taskItem = taskList.get(position);
         holder.textTask.setText(taskItem.getName());
         holder.textScore.setText("+" + taskItem.getPoints().toString());
-        // Set listeners or other properties here
     }
 
     @Override
@@ -38,7 +39,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return taskList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView textTask;
         TextView textScore;
 
@@ -46,6 +47,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             super(view);
             textTask = view.findViewById(R.id.text_task);
             textScore = view.findViewById(R.id.text_score);
+            view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.setHeaderTitle("具体操作");
+
+            contextMenu.add(0, 0, this.getAdapterPosition(), "添加任务");
+            contextMenu.add(0, 2, this.getAdapterPosition(), "修改任务");
+            contextMenu.add(0, 1, this.getAdapterPosition(), "删除任务");
+        }
+
     }
 }

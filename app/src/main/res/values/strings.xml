@@ -15,9 +15,11 @@
     <string name="title_statistics">统计</string>
     <string name="title_my">我的</string>
     <string name="title_app">ZHJ-Todo</string>
-    <string name="add_task">add task</string>
+    <string name="add_task">添加任务</string>
     <string name="title_activity_add_task">AddTaskActivity</string>
     <string name="task_title">任务标题</string>
     <string name="task_score">任务分数</string>
     <string name="finish">完成</string>
+    <string name="modify_task">修改任务</string>
+    <string name="delete_task">删除任务</string>
 </resources>

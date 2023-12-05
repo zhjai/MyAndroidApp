@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,8 @@ public class DailyTaskFragment extends Fragment {
     private TaskAdapter taskAdapter;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
     private ActivityResultLauncher<Intent> addTaskLauncher;
+    private ActivityResultLauncher<Intent> modifyTaskLauncher;
+    private boolean isCurrentFragment = false;
 
     public DailyTaskFragment() {
         // Required empty public constructor
@@ -48,18 +51,33 @@ public class DailyTaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
                 addTaskLauncher = registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
-                            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                                // 这里是您处理返回结果的地方
-                                Intent data = result.getData();
-                                String taskName = data.getStringExtra("TASK_NAME");
-                                int taskPoints = data.getIntExtra("TASK_POINTS", -1);
-                                TaskItem newTask = new TaskItem(taskName, taskPoints);
-                                taskList.add(newTask);
-                                taskAdapter.notifyItemInserted(taskList.size() - 1);
-                            }
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            // 这里是您处理返回结果的地方
+                            Intent data = result.getData();
+                            String taskName = data.getStringExtra("TASK_NAME");
+                            int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                            TaskItem newTask = new TaskItem(taskName, taskPoints);
+                            taskList.add(newTask);
+                            taskAdapter.notifyItemInserted(taskList.size() - 1);
                         }
+                    }
+                );
+                modifyTaskLauncher = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            // 这里是您处理返回结果的地方
+                            Intent data = result.getData();
+                            String taskName = data.getStringExtra("TASK_NAME");
+                            int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                            int position = data.getIntExtra("TASK_POSITION", -1);
+                            taskList.get(position).setName(taskName);
+                            taskList.get(position).setPoints(taskPoints);
+                            taskAdapter.notifyItemChanged(position);
+                        }
+                    }
                 );
         }
     }
@@ -83,5 +101,44 @@ public class DailyTaskFragment extends Fragment {
             addTaskLauncher.launch(intent);
         });
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isCurrentFragment = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isCurrentFragment = false;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (!isCurrentFragment) {
+            return false;
+        }
+        int position = item.getOrder();
+        switch (item.getItemId()) {
+            case 0:
+                Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+                addTaskLauncher.launch(intent);
+                return true;
+            case 1:
+                taskList.remove(position);
+                taskAdapter.notifyItemRemoved(position);
+                return true;
+            case 2:
+                intent = new Intent(getActivity(), ModifyTaskActivity.class);
+                intent.putExtra("taskName", taskList.get(position).getName());
+                intent.putExtra("taskPoints", taskList.get(position).getPoints());
+                intent.putExtra("taskPosition", position);
+                modifyTaskLauncher.launch(intent);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }
