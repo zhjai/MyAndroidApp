@@ -21,9 +21,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AddTaskActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_task"
+            android:theme="@style/Theme.Exam" />
+        <activity
             android:name=".MainActivity2"
             android:exported="true"
-            android:label="@string/title_activity_main2" >
+            android:label="@string/title_activity_main2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

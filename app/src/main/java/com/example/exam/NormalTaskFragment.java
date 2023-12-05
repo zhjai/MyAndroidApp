@@ -1,7 +1,11 @@
 package com.example.exam;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.exam.data.TaskAdapter;
 import com.example.exam.data.TaskItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,7 @@ public class NormalTaskFragment extends Fragment {
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
+    private ActivityResultLauncher<Intent> addTaskLauncher;
 
     public NormalTaskFragment() {
         // Required empty public constructor
@@ -41,6 +47,20 @@ public class NormalTaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            addTaskLauncher = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            // 这里是您处理返回结果的地方
+                            Intent data = result.getData();
+                            String taskName = data.getStringExtra("TASK_NAME");
+                            int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                            TaskItem newTask = new TaskItem(taskName, taskPoints);
+                            taskList.add(newTask);
+                            taskAdapter.notifyItemInserted(taskList.size() - 1);
+                        }
+                    }
+            );
         }
     }
 
@@ -56,6 +76,12 @@ public class NormalTaskFragment extends Fragment {
         taskList.add(new TaskItem("锻炼", 300));
         taskAdapter = new TaskAdapter(taskList);
         recyclerView.setAdapter(taskAdapter);
+
+        FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_normal_task);
+        floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+            addTaskLauncher.launch(intent);
+        });
         return rootView;
     }
 }

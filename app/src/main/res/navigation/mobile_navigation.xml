@@ -8,24 +8,24 @@
     <fragment
         android:id="@+id/navigation_task"
         android:name="com.example.exam.TaskFragment"
-        android:label="@string/title_task"
+        android:label="@string/title_app"
         tools:layout="@layout/fragment_task" />
 
     <fragment
         android:id="@+id/navigation_award"
         android:name="com.example.exam.AwardFragment"
-        android:label="@string/title_award"
+        android:label="@string/title_app"
         tools:layout="@layout/fragment_award" />
 
     <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.example.exam.StatisticsFragment"
-        android:label="@string/title_statistics"
+        android:label="@string/title_app"
         tools:layout="@layout/fragment_statistics" />
 
     <fragment
         android:id="@+id/navigation_my"
         android:name="com.example.exam.MyFragment"
-        android:label="@string/title_my"
+        android:label="@string/title_app"
         tools:layout="@layout/fragment_my" />
 </navigation>
