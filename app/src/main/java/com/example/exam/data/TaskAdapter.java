@@ -52,12 +52,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            contextMenu.setHeaderTitle("具体操作");
-
             contextMenu.add(0, 0, this.getAdapterPosition(), "添加任务");
             contextMenu.add(0, 2, this.getAdapterPosition(), "修改任务");
             contextMenu.add(0, 1, this.getAdapterPosition(), "删除任务");
         }
-
     }
 }

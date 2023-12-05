@@ -50,35 +50,35 @@ public class DailyTaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-                addTaskLauncher = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                            // 这里是您处理返回结果的地方
-                            Intent data = result.getData();
-                            String taskName = data.getStringExtra("TASK_NAME");
-                            int taskPoints = data.getIntExtra("TASK_POINTS", -1);
-                            TaskItem newTask = new TaskItem(taskName, taskPoints);
-                            taskList.add(newTask);
-                            taskAdapter.notifyItemInserted(taskList.size() - 1);
-                        }
+            addTaskLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        // 这里是您处理返回结果的地方
+                        Intent data = result.getData();
+                        String taskName = data.getStringExtra("TASK_NAME");
+                        int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                        TaskItem newTask = new TaskItem(taskName, taskPoints);
+                        taskList.add(newTask);
+                        taskAdapter.notifyItemInserted(taskList.size() - 1);
                     }
-                );
-                modifyTaskLauncher = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                            // 这里是您处理返回结果的地方
-                            Intent data = result.getData();
-                            String taskName = data.getStringExtra("TASK_NAME");
-                            int taskPoints = data.getIntExtra("TASK_POINTS", -1);
-                            int position = data.getIntExtra("TASK_POSITION", -1);
-                            taskList.get(position).setName(taskName);
-                            taskList.get(position).setPoints(taskPoints);
-                            taskAdapter.notifyItemChanged(position);
-                        }
+                }
+            );
+            modifyTaskLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        // 这里是您处理返回结果的地方
+                        Intent data = result.getData();
+                        String taskName = data.getStringExtra("TASK_NAME");
+                        int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                        int position = data.getIntExtra("TASK_POSITION", -1);
+                        taskList.get(position).setName(taskName);
+                        taskList.get(position).setPoints(taskPoints);
+                        taskAdapter.notifyItemChanged(position);
                     }
-                );
+                }
+            );
         }
     }
 
