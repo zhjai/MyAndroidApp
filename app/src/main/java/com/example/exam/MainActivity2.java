@@ -49,15 +49,11 @@ public class MainActivity2 extends AppCompatActivity {
 
         BottomNavigationView navView = (BottomNavigationView) findViewById(R.id.nav_view);
         navView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.navigation_my) {
-                invalidateOptionsMenu();
-            }
+            invalidateOptionsMenu();
             return true;
         });
         navView.setOnItemReselectedListener(item -> {
-            if (item.getItemId() == R.id.navigation_my) {
-                invalidateOptionsMenu();
-            }
+            invalidateOptionsMenu();
         });
         navView.setItemIconTintList(null);
         // Passing each menu ID as a set of Ids because each
@@ -68,32 +64,79 @@ public class MainActivity2 extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            invalidateOptionsMenu();
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 根据当前选中的导航项决定是否显示齿轮图标
-        getMenuInflater().inflate(R.menu.menu_my_fragment, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // 根据当前选中的导航项决定是否显示齿轮图标
-        boolean showSettings = isMyFragmentDisplayed();
-        MenuItem settingsItem = menu.findItem(R.id.action_settings);
-        if (settingsItem != null) {
-            settingsItem.setVisible(showSettings);
+        // 先清除当前所有菜单项
+        menu.clear();
+        // 根据当前选中的Fragment加载对应的菜单资源
+        if (isTaskFragmentDisplayed() || isAwardFragmentDisplayed()) {
+            getMenuInflater().inflate(R.menu.menu_task_fragment, menu);
+        } else if (isStatisticsFragmentDisplayed()) {
+            getMenuInflater().inflate(R.menu.menu_statistics_fragment, menu);
+        } else if (isMyFragmentDisplayed()) {
+            getMenuInflater().inflate(R.menu.menu_my_fragment, menu);
         }
         return super.onPrepareOptionsMenu(menu);
     }
 
-    // Helper method to determine if MyFragment is currently displayed
+    private boolean isTaskFragmentDisplayed() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+        return navController.getCurrentDestination().getId() == R.id.navigation_task;
+    }
+
+    private boolean isAwardFragmentDisplayed() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+        return navController.getCurrentDestination().getId() == R.id.navigation_award;
+    }
+
+    private boolean isStatisticsFragmentDisplayed() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+        return navController.getCurrentDestination().getId() == R.id.navigation_statistics;
+    }
+
     private boolean isMyFragmentDisplayed() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            invalidateOptionsMenu();
-        });
         return navController.getCurrentDestination().getId() == R.id.navigation_my;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+            if (item.getItemId() == R.id.action_sort) {
+                // 处理手动排序逻辑
+                return true;
+            }
+            else if (item.getItemId() == R.id.action_sort_sub) {
+                // 处理排序逻辑
+                return true;
+            }
+            else if (item.getItemId() == R.id.action_share) {
+                // 处理分享逻辑
+                return true;
+            }
+            else if (item.getItemId() == R.id.action_history) {
+                // 跳转到历史Fragment
+                NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+                navController.navigate(R.id.historyFragment);
+                return true;
+            }
+            else if (item.getItemId() == android.R.id.home) {
+                return Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2).navigateUp()
+                        || super.onSupportNavigateUp();
+            }
+            else {
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

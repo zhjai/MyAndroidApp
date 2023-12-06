@@ -37,12 +37,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.textScore.setText("+" + taskItem.getPoints().toString());
 
         holder.checkbox.setOnCheckedChangeListener(null);
+        holder.checkbox.setChecked(false);
 
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION) {
                 TaskItem taskItem1 = taskList.get(currentPosition);
                 if (isChecked) {
+                    taskItem1.setDateTimeMillis(System.currentTimeMillis());
                     GlobalData.finishedTasks.add(taskItem1);
                     finishedDataBank.saveObject(GlobalData.finishedTasks);
                     GlobalData.setPoints(GlobalData.getPoints().getValue() + taskItem1.getPoints());
@@ -66,8 +68,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         ViewHolder(View view, final TaskAdapter adapter) {
             super(view);
-            textTask = view.findViewById(R.id.text_task);
-            textScore = view.findViewById(R.id.text_score);
+            textTask = view.findViewById(R.id.history_name);
+            textScore = view.findViewById(R.id.history_score);
             checkbox = view.findViewById(R.id.checkbox_task);
 
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);

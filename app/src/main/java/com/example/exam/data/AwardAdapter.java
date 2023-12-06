@@ -41,6 +41,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         holder.textScore.setText("-" + awardItem.getPoints().toString());
 
         holder.checkbox.setOnCheckedChangeListener(null);
+        holder.checkbox.setChecked(false);
 
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int currentPosition = holder.getAdapterPosition();
@@ -56,6 +57,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
                         builder.show();
                         return;
                     }
+                    awardItem1.setDateTimeMillis(System.currentTimeMillis());
                     GlobalData.finishedAwards.add(awardItem1);
                     finishedDataBank.saveObject(GlobalData.finishedAwards);
                     GlobalData.setPoints(getPoints().getValue() - awardItem1.getPoints());

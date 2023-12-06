@@ -120,9 +120,6 @@ public class DailyTaskFragment extends Fragment {
             addTaskLauncher.launch(intent);
         });
 
-        if (taskList.size() == 0) {
-
-        }
         return rootView;
     }
 

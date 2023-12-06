@@ -28,4 +28,9 @@
     <string name="settings">设置</string>
     <string name="add_first_task">点击右下方加号以添加第一个任务</string>
     <string name="add_first_award">点击右下方加号以添加第一个奖励</string>
+    <string name="manual_sort">手动排序</string>
+    <string name="more">更多</string>
+    <string name="sort">排序</string>
+    <string name="share">分享</string>
+    <string name="history">历史</string>
 </resources>
