@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.exam.data.AwardDataBank;
+import com.example.exam.data.AwardItem;
+import com.example.exam.data.GlobalData;
+import com.example.exam.data.TaskDataBank;
+import com.example.exam.data.TaskItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +27,22 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        TaskDataBank taskDataBank = new TaskDataBank(this, "finishedTasks");
+        AwardDataBank awardDataBank = new AwardDataBank(this, "finishedAwards");
+
+        int points = 0;
+        GlobalData.context = this;
+        GlobalData.finishedTasks = taskDataBank.loadObject();
+        GlobalData.finishedAwards = awardDataBank.loadObject();
+
+        for (TaskItem taskItem : GlobalData.finishedTasks) {
+            points += taskItem.getPoints();
+        }
+        for (AwardItem awardItem : GlobalData.finishedAwards) {
+            points -= awardItem.getPoints();
+        }
+
+        GlobalData.setPoints(points);
 
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -1,5 +1,7 @@
 package com.example.exam.data;
 
+import static com.example.exam.data.GlobalData.getPoints;
+
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,6 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     private ArrayList<AwardItem> awardList;
 
     private AwardDataBank dataBank;
-
-    static ArrayList<AwardItem> finishedAwards = new ArrayList<>();
 
     public AwardAdapter(ArrayList<AwardItem> awardList, AwardDataBank dataBank) {
         this.awardList = awardList;
@@ -44,7 +44,8 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
             if (currentPosition != RecyclerView.NO_POSITION) {
                 AwardItem awardItem1 = awardList.get(currentPosition);
                 if (isChecked) {
-                    finishedAwards.add(awardItem1);
+                    GlobalData.finishedAwards.add(awardItem1);
+                    GlobalData.setPoints(getPoints().getValue() - awardItem1.getPoints());
                     awardList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(awardList);

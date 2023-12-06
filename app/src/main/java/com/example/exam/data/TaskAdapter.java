@@ -2,11 +2,9 @@ package com.example.exam.data;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +17,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<TaskItem> taskList;
     private TaskDataBank dataBank;
-
-    static ArrayList<TaskItem> finishedTasks = new ArrayList<>();
 
     public TaskAdapter(ArrayList<TaskItem> taskList, TaskDataBank dataBank) {
         this.taskList = taskList;
@@ -46,7 +42,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             if (currentPosition != RecyclerView.NO_POSITION) {
                 TaskItem taskItem1 = taskList.get(currentPosition);
                 if (isChecked) {
-                    finishedTasks.add(taskItem1);
+                    GlobalData.finishedTasks.add(taskItem1);
+                    GlobalData.setPoints(GlobalData.getPoints().getValue() + taskItem1.getPoints());
                     taskList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(taskList);

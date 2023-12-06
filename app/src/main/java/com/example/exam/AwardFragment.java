@@ -14,10 +14,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.exam.data.AwardAdapter;
 import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
+import com.example.exam.data.GlobalData;
 import com.example.exam.data.TaskDataBank;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -96,6 +98,11 @@ public class AwardFragment extends Fragment {
         awardList = dataBank.loadObject();
         awardAdapter = new AwardAdapter(awardList, dataBank);
         recyclerView.setAdapter(awardAdapter);
+
+        TextView pointsTextView = rootView.findViewById(R.id.award_points_text_view);
+        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
+            pointsTextView.setText("积分：" + points);
+        });
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_award);
         floatingActionButton.setOnClickListener(v -> {
