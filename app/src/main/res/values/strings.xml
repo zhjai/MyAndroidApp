@@ -26,4 +26,6 @@
     <string name="award_title">奖励标题</string>
     <string name="award_score">奖励分数</string>
     <string name="settings">设置</string>
+    <string name="add_first_task">点击右下方加号以添加第一个任务</string>
+    <string name="add_first_award">点击右下方加号以添加第一个奖励</string>
 </resources>

@@ -17,6 +17,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<TaskItem> taskList;
     private TaskDataBank dataBank;
+    private TaskDataBank finishedDataBank = new TaskDataBank(GlobalData.context, "finishedTasks");
 
     public TaskAdapter(ArrayList<TaskItem> taskList, TaskDataBank dataBank) {
         this.taskList = taskList;
@@ -43,6 +44,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 TaskItem taskItem1 = taskList.get(currentPosition);
                 if (isChecked) {
                     GlobalData.finishedTasks.add(taskItem1);
+                    finishedDataBank.saveObject(GlobalData.finishedTasks);
                     GlobalData.setPoints(GlobalData.getPoints().getValue() + taskItem1.getPoints());
                     taskList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);

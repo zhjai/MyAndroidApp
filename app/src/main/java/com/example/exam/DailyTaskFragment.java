@@ -1,6 +1,7 @@
 package com.example.exam;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.exam.data.TaskAdapter;
 import com.example.exam.data.TaskDataBank;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 public class DailyTaskFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private TextView emptyTaskTextView;
     private TaskAdapter taskAdapter;
     private TaskDataBank dataBank;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
@@ -60,10 +63,21 @@ public class DailyTaskFragment extends Fragment {
                         Intent data = result.getData();
                         String taskName = data.getStringExtra("TASK_NAME");
                         int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                        for (TaskItem taskItem : taskList) {
+                            if (taskItem.getName().equals(taskName)) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                                builder.setTitle("添加失败");
+                                builder.setMessage("任务已存在");
+                                builder.setPositiveButton("确定", (dialog, which) -> {});
+                                builder.show();
+                                return;
+                            }
+                        }
                         TaskItem newTask = new TaskItem(taskName, taskPoints);
                         taskList.add(newTask);
                         taskAdapter.notifyItemInserted(taskList.size() - 1);
                         dataBank.saveObject(taskList);
+                        checkIfEmpty();
                     }
                 }
             );
@@ -97,12 +111,18 @@ public class DailyTaskFragment extends Fragment {
         taskList = dataBank.loadObject();
         taskAdapter = new TaskAdapter(taskList, dataBank);
         recyclerView.setAdapter(taskAdapter);
+        emptyTaskTextView = rootView.findViewById(R.id.empty_daily_task_text_view);
+        checkIfEmpty();
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_daily_task);
         floatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddTaskActivity.class);
             addTaskLauncher.launch(intent);
         });
+
+        if (taskList.size() == 0) {
+
+        }
         return rootView;
     }
 
@@ -130,9 +150,17 @@ public class DailyTaskFragment extends Fragment {
                 addTaskLauncher.launch(intent);
                 return true;
             case 1:
-                taskList.remove(position);
-                taskAdapter.notifyItemRemoved(position);
-                dataBank.saveObject(taskList);
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                builder.setTitle("删除任务");
+                builder.setMessage("你真的要删除任务吗？");
+                builder.setPositiveButton("是", (dialog, which) -> {
+                    taskList.remove(position);
+                    taskAdapter.notifyItemRemoved(position);
+                    dataBank.saveObject(taskList);
+                });
+                builder.setNegativeButton("否", (dialog, which) -> {});
+                builder.show();
+                checkIfEmpty();
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyTaskActivity.class);
@@ -143,6 +171,15 @@ public class DailyTaskFragment extends Fragment {
                 return true;
             default:
                 return super.onContextItemSelected(item);
+        }
+    }
+
+
+    public void checkIfEmpty() {
+        if (taskList.isEmpty()) {
+            emptyTaskTextView.setVisibility(View.VISIBLE);
+        } else {
+            emptyTaskTextView.setVisibility(View.GONE);
         }
     }
 }

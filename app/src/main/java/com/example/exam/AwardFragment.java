@@ -1,6 +1,7 @@
 package com.example.exam;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
 import com.example.exam.data.GlobalData;
 import com.example.exam.data.TaskDataBank;
+import com.example.exam.data.TaskItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 public class AwardFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private TextView emptyAwardTextView;
     private AwardAdapter awardAdapter;
     private AwardDataBank dataBank;
     private ArrayList<AwardItem> awardList = new ArrayList<>();
@@ -62,10 +65,21 @@ public class AwardFragment extends Fragment {
                     Intent data = result.getData();
                     String awardName = data.getStringExtra("AWARD_NAME");
                     int awardPoints = data.getIntExtra("AWARD_POINTS", -1);
+                    for (AwardItem awardItem : awardList) {
+                        if (awardItem.getName().equals(awardName)) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                            builder.setTitle("添加失败");
+                            builder.setMessage("奖励已存在");
+                            builder.setPositiveButton("确定", (dialog, which) -> {});
+                            builder.show();
+                            return;
+                        }
+                    }
                     AwardItem newAward = new AwardItem(awardName, awardPoints);
                     awardList.add(newAward);
                     awardAdapter.notifyItemInserted(awardList.size() - 1);
                     dataBank.saveObject(awardList);
+                    checkIfEmpty();
                 }
             }
         );
@@ -98,6 +112,8 @@ public class AwardFragment extends Fragment {
         awardList = dataBank.loadObject();
         awardAdapter = new AwardAdapter(awardList, dataBank);
         recyclerView.setAdapter(awardAdapter);
+        emptyAwardTextView = rootView.findViewById(R.id.empty_award_text_view);
+        checkIfEmpty();
 
         TextView pointsTextView = rootView.findViewById(R.id.award_points_text_view);
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
@@ -136,9 +152,17 @@ public class AwardFragment extends Fragment {
                 addAwardLauncher.launch(intent);
                 return true;
             case 1:
-                awardList.remove(position);
-                awardAdapter.notifyItemRemoved(position);
-                dataBank.saveObject(awardList);
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                builder.setTitle("删除奖励");
+                builder.setMessage("你真的要删除奖励吗？");
+                builder.setPositiveButton("是", (dialog, which) -> {
+                    awardList.remove(position);
+                    awardAdapter.notifyItemRemoved(position);
+                    dataBank.saveObject(awardList);
+                });
+                builder.setNegativeButton("否", (dialog, which) -> {});
+                builder.show();
+                checkIfEmpty();
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyAwardActivity.class);
@@ -149,6 +173,14 @@ public class AwardFragment extends Fragment {
                 return true;
             default:
                 return super.onContextItemSelected(item);
+        }
+    }
+
+    public void checkIfEmpty() {
+        if (awardList.isEmpty()) {
+            emptyAwardTextView.setVisibility(View.VISIBLE);
+        } else {
+            emptyAwardTextView.setVisibility(View.GONE);
         }
     }
 }

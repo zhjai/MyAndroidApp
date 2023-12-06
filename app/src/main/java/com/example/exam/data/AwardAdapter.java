@@ -1,7 +1,9 @@
 package com.example.exam.data;
 
+import static com.example.exam.data.GlobalData.context;
 import static com.example.exam.data.GlobalData.getPoints;
 
+import android.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     private ArrayList<AwardItem> awardList;
 
     private AwardDataBank dataBank;
+    private AwardDataBank finishedDataBank = new AwardDataBank(GlobalData.context, "finishedAwards");
 
     public AwardAdapter(ArrayList<AwardItem> awardList, AwardDataBank dataBank) {
         this.awardList = awardList;
@@ -44,7 +47,17 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
             if (currentPosition != RecyclerView.NO_POSITION) {
                 AwardItem awardItem1 = awardList.get(currentPosition);
                 if (isChecked) {
+                    if (getPoints().getValue() < awardItem1.getPoints()) {
+                        holder.checkbox.setChecked(false);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("完成失败");
+                        builder.setMessage("积分不足");
+                        builder.setPositiveButton("确定", (dialog, which) -> {});
+                        builder.show();
+                        return;
+                    }
                     GlobalData.finishedAwards.add(awardItem1);
+                    finishedDataBank.saveObject(GlobalData.finishedAwards);
                     GlobalData.setPoints(getPoints().getValue() - awardItem1.getPoints());
                     awardList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
