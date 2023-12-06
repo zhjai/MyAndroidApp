@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
 import com.example.exam.data.GlobalData;
+import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,6 +23,8 @@ import com.example.exam.databinding.ActivityMain2Binding;
 public class MainActivity2 extends AppCompatActivity {
 
     private ActivityMain2Binding binding;
+    private SortModeListener currentSortModeListener;
+    private boolean isInSortMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +117,17 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
             if (item.getItemId() == R.id.action_sort) {
-                // 处理手动排序逻辑
+                isInSortMode = !isInSortMode;
+                item.setTitle(isInSortMode ? "确定" : "手动排序");
+
+                if (currentSortModeListener != null) {
+                    if (isInSortMode) {
+                        currentSortModeListener.onEnterSortMode();
+                    }
+                    else {
+                        currentSortModeListener.onExitSortMode();
+                    }
+                }
                 return true;
             }
             else if (item.getItemId() == R.id.action_sort_sub) {
@@ -138,5 +151,9 @@ public class MainActivity2 extends AppCompatActivity {
             else {
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void setCurrentSortModeListener(SortModeListener listener) {
+        this.currentSortModeListener = listener;
     }
 }

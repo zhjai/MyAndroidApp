@@ -4,25 +4,25 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.exam.data.AwardAdapter;
 import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
+import com.example.exam.data.DragAndDropAwardCallback;
 import com.example.exam.data.GlobalData;
-import com.example.exam.data.TaskDataBank;
-import com.example.exam.data.TaskItem;
+import com.example.exam.data.SortModeListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * Use the {@link AwardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AwardFragment extends Fragment {
+public class AwardFragment extends Fragment implements SortModeListener {
 
     private RecyclerView recyclerView;
     private TextView emptyAwardTextView;
@@ -42,6 +42,7 @@ public class AwardFragment extends Fragment {
     private ActivityResultLauncher<Intent> addAwardLauncher;
     private ActivityResultLauncher<Intent> modifyAwardLauncher;
     private boolean isCurrentFragment = false;
+    private ItemTouchHelper itemTouchHelper;
 
     public AwardFragment() {
         // Required empty public constructor
@@ -132,12 +133,18 @@ public class AwardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         isCurrentFragment = true;
+        if (getActivity() instanceof MainActivity2) {
+            ((MainActivity2) getActivity()).setCurrentSortModeListener(this);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         isCurrentFragment = false;
+        if (getActivity() instanceof MainActivity2) {
+            ((MainActivity2) getActivity()).setCurrentSortModeListener(null);
+        }
     }
 
     @Override
@@ -182,5 +189,20 @@ public class AwardFragment extends Fragment {
         } else {
             emptyAwardTextView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onEnterSortMode() {
+        itemTouchHelper = new ItemTouchHelper(new DragAndDropAwardCallback(awardAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+        awardAdapter.setContextMenuEnabled(false);
+        awardAdapter.setSortMode(true);
+    }
+
+    @Override
+    public void onExitSortMode() {
+        itemTouchHelper.attachToRecyclerView(null);
+        awardAdapter.setContextMenuEnabled(true);
+        awardAdapter.setSortMode(false);
     }
 }

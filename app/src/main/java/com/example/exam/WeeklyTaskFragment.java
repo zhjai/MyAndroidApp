@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.exam.data.DragAndDropTaskCallback;
+import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskAdapter;
 import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
  * Use the {@link WeeklyTaskFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeeklyTaskFragment extends Fragment {
+public class WeeklyTaskFragment extends Fragment implements SortModeListener {
 
     private RecyclerView recyclerView;
     private TextView emptyTaskTextView;
@@ -39,6 +42,7 @@ public class WeeklyTaskFragment extends Fragment {
     private ActivityResultLauncher<Intent> addTaskLauncher;
     private ActivityResultLauncher<Intent> modifyTaskLauncher;
     private boolean isCurrentFragment = false;
+    private ItemTouchHelper itemTouchHelper;
 
     public WeeklyTaskFragment() {
         // Required empty public constructor
@@ -126,11 +130,17 @@ public class WeeklyTaskFragment extends Fragment {
     public void onResume() {
         super.onResume();
         isCurrentFragment = true;
+        if (getActivity() instanceof MainActivity2) {
+            ((MainActivity2) getActivity()).setCurrentSortModeListener(this);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (getActivity() instanceof MainActivity2) {
+            ((MainActivity2) getActivity()).setCurrentSortModeListener(null);
+        }
         isCurrentFragment = false;
     }
 
@@ -176,5 +186,20 @@ public class WeeklyTaskFragment extends Fragment {
         } else {
             emptyTaskTextView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onEnterSortMode() {
+        itemTouchHelper = new ItemTouchHelper(new DragAndDropTaskCallback(taskAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+        taskAdapter.setContextMenuEnabled(false);
+        taskAdapter.setSortMode(true);
+    }
+
+    @Override
+    public void onExitSortMode() {
+        itemTouchHelper.attachToRecyclerView(null);
+        taskAdapter.setContextMenuEnabled(true);
+        taskAdapter.setSortMode(false);
     }
 }
