@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.exam.data.AwardAdapter;
+import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
-import com.example.exam.data.TaskAdapter;
-import com.example.exam.data.TaskItem;
+import com.example.exam.data.TaskDataBank;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class AwardFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AwardAdapter awardAdapter;
+    private AwardDataBank dataBank;
     private ArrayList<AwardItem> awardList = new ArrayList<>();
     private ActivityResultLauncher<Intent> addAwardLauncher;
     private ActivityResultLauncher<Intent> modifyAwardLauncher;
@@ -62,6 +63,7 @@ public class AwardFragment extends Fragment {
                     AwardItem newAward = new AwardItem(awardName, awardPoints);
                     awardList.add(newAward);
                     awardAdapter.notifyItemInserted(awardList.size() - 1);
+                    dataBank.saveObject(awardList);
                 }
             }
         );
@@ -77,6 +79,7 @@ public class AwardFragment extends Fragment {
                     awardList.get(awardPosition).setName(awardName);
                     awardList.get(awardPosition).setPoints(awardPoints);
                     awardAdapter.notifyItemChanged(awardPosition);
+                    dataBank.saveObject(awardList);
                 }
             }
         );
@@ -89,10 +92,9 @@ public class AwardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_award, container, false);
         recyclerView = rootView.findViewById(R.id.award_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        awardList.add(new AwardItem("看手机", 300));
-        awardList.add(new AwardItem("吃零食", 500));
-        awardList.add(new AwardItem("看电脑", 1000));
-        awardAdapter = new AwardAdapter(awardList);
+        dataBank = new AwardDataBank(getContext(), "awards");
+        awardList = dataBank.loadObject();
+        awardAdapter = new AwardAdapter(awardList, dataBank);
         recyclerView.setAdapter(awardAdapter);
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_award);
@@ -129,6 +131,7 @@ public class AwardFragment extends Fragment {
             case 1:
                 awardList.remove(position);
                 awardAdapter.notifyItemRemoved(position);
+                dataBank.saveObject(awardList);
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyAwardActivity.class);

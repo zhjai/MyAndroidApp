@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.exam.data.TaskAdapter;
+import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,6 +31,7 @@ public class NormalTaskFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
+    private TaskDataBank dataBank;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
     private ActivityResultLauncher<Intent> addTaskLauncher;
     private ActivityResultLauncher<Intent> modifyTaskLauncher;
@@ -61,6 +63,7 @@ public class NormalTaskFragment extends Fragment {
                             TaskItem newTask = new TaskItem(taskName, taskPoints);
                             taskList.add(newTask);
                             taskAdapter.notifyItemInserted(taskList.size() - 1);
+                            dataBank.saveObject(taskList);
                         }
                     }
             );
@@ -76,6 +79,7 @@ public class NormalTaskFragment extends Fragment {
                             taskList.get(position).setName(taskName);
                             taskList.get(position).setPoints(taskPoints);
                             taskAdapter.notifyItemChanged(position);
+                            dataBank.saveObject(taskList);
                         }
                     }
             );
@@ -89,10 +93,9 @@ public class NormalTaskFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_normal_task, container, false);
         recyclerView = rootView.findViewById(R.id.normal_task_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        taskList.add(new TaskItem("写作业", 500));
-        taskList.add(new TaskItem("看书", 200));
-        taskList.add(new TaskItem("锻炼", 300));
-        taskAdapter = new TaskAdapter(taskList);
+        dataBank = new TaskDataBank(getContext(), "normalTasks");
+        taskList = dataBank.loadObject();
+        taskAdapter = new TaskAdapter(taskList, dataBank);
         recyclerView.setAdapter(taskAdapter);
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_normal_task);
@@ -129,6 +132,7 @@ public class NormalTaskFragment extends Fragment {
             case 1:
                 taskList.remove(position);
                 taskAdapter.notifyItemRemoved(position);
+                dataBank.saveObject(taskList);
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyTaskActivity.class);

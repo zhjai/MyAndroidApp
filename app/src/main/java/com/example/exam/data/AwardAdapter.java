@@ -4,6 +4,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +16,13 @@ import java.util.ArrayList;
 public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     private ArrayList<AwardItem> awardList;
 
-    public AwardAdapter(ArrayList<AwardItem> awardList) {
+    private AwardDataBank dataBank;
+
+    static ArrayList<AwardItem> finishedAwards = new ArrayList<>();
+
+    public AwardAdapter(ArrayList<AwardItem> awardList, AwardDataBank dataBank) {
         this.awardList = awardList;
+        this.dataBank = dataBank;
     }
 
     @Override
@@ -30,6 +36,21 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         AwardItem awardItem = awardList.get(position);
         holder.textAward.setText(awardItem.getName());
         holder.textScore.setText("-" + awardItem.getPoints().toString());
+
+        holder.checkbox.setOnCheckedChangeListener(null);
+
+        holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                AwardItem awardItem1 = awardList.get(currentPosition);
+                if (isChecked) {
+                    finishedAwards.add(awardItem1);
+                    awardList.remove(currentPosition);
+                    notifyItemRemoved(currentPosition);
+                    dataBank.saveObject(awardList);
+                }
+            }
+        });
     }
 
     @Override
@@ -40,11 +61,13 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView textAward;
         TextView textScore;
+        CheckBox checkbox;
 
         ViewHolder(View view) {
             super(view);
             textAward = view.findViewById(R.id.text_award);
             textScore = view.findViewById(R.id.text_award_score);
+            checkbox = view.findViewById(R.id.checkbox_award);
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);
         }
 

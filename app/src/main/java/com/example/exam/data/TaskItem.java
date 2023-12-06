@@ -1,6 +1,8 @@
 package com.example.exam.data;
 
-public class TaskItem {
+import java.io.Serializable;
+
+public class TaskItem implements Serializable {
     private String name;
     private Integer points;
 

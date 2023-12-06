@@ -1,6 +1,8 @@
 package com.example.exam.data;
 
-public class AwardItem {
+import java.io.Serializable;
+
+public class AwardItem implements Serializable {
     private String name;
     private Integer points;
 
