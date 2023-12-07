@@ -11,7 +11,7 @@
         android:id="@+id/user_info_layout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/blue"
+        android:background="@color/deep_green"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -34,14 +34,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ajaja"
-                android:textAppearance="?attr/textAppearanceSubtitle1" />
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/user_level"
+                android:id="@+id/user_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="V5"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -87,12 +88,13 @@
 
         <!-- 完成任务数 -->
         <TextView
+            android:id="@+id/text_completed_tasks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="完成任务数\n3/10"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
@@ -101,12 +103,13 @@
 
         <!-- 消耗积分 -->
         <TextView
+            android:id="@+id/text_task_points"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="消耗积分\n919"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
@@ -115,12 +118,13 @@
 
         <!-- 奖励积分 -->
         <TextView
+            android:id="@+id/text_award_points"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="奖励积分\n5700"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- ListView -->

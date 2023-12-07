@@ -27,7 +27,8 @@
         app:layout_constraintTop_toBottomOf="@id/award_points_text_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="112dp" />
 
     <!-- FloatingActionButton用于添加新奖励 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

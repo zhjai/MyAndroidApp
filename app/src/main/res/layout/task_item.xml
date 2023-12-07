@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
-        android:textColor="@color/azure"
+        android:textColor="@color/deep_green"
         android:textSize="18sp"
         android:textStyle="bold" />
 

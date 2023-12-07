@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.exam.data.AwardItem;
+import com.example.exam.data.GlobalData;
 import com.example.exam.data.MyFragmentAdapter;
+import com.example.exam.data.TaskItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,33 +22,17 @@ import com.example.exam.data.MyFragmentAdapter;
  */
 public class MyFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    TextView taskCountTextView;
+    TextView taskPointsTextView;
+    TextView awardPointsTextView;
 
     public MyFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyFragment newInstance(String param1, String param2) {
+    public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,8 +41,6 @@ public class MyFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -69,6 +55,44 @@ public class MyFragment extends Fragment {
         MyFragmentAdapter adapter = new MyFragmentAdapter(getContext(), items);
         listView.setAdapter(adapter);
 
+        TextView pointsTextView = rootView.findViewById(R.id.user_points);
+        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
+            pointsTextView.setText("我的积分：" + points);
+        });
+
+        taskCountTextView = rootView.findViewById(R.id.text_completed_tasks);
+        taskCountTextView.setText("完成任务数\n" + GlobalData.finishedTasks.size());
+
+        taskPointsTextView = rootView.findViewById(R.id.text_task_points);
+        taskPointsTextView.setText("消耗积分\n" + getTaskPoints());
+
+        awardPointsTextView = rootView.findViewById(R.id.text_award_points);
+        awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
+
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        taskCountTextView.setText("完成任务数\n" + GlobalData.finishedTasks.size());
+        taskPointsTextView.setText("消耗积分\n" + getTaskPoints());
+        awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
+    }
+
+    public int getTaskPoints() {
+        int points = 0;
+        for (TaskItem taskItem : GlobalData.finishedTasks) {
+            points += taskItem.getPoints();
+        }
+        return points;
+    }
+
+    public int getAwardPoints() {
+        int points = 0;
+        for (AwardItem awardItem : GlobalData.finishedAwards) {
+            points += awardItem.getPoints();
+        }
+        return points;
     }
 }

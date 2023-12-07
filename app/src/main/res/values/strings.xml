@@ -33,4 +33,6 @@
     <string name="sort">排序</string>
     <string name="share">分享</string>
     <string name="history">历史</string>
+    <string name="completion_trend">完成趋势</string>
+    <string name="show_7_completion_trend">展示了前7天的完成趋势</string>
 </resources>

@@ -11,4 +11,6 @@
     <color name="azure">#2195F2</color> <!-- 天蓝色 -->
     <color name="dark_sky_blue">#1976D1</color> <!-- 淡蓝色 -->
     <color name="red">#FF0000</color> <!-- 红色 -->
+    <color name="orange">#FF5722</color> <!-- 橙色 -->
+    <color name="deep_green">#11AAAB</color> <!-- 绿色 -->
 </resources>
