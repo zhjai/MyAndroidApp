@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="ajaja"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
             <TextView
@@ -42,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceCaption"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -52,12 +54,17 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/drawer_message_button"
+            android:id="@+id/message_button"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/sign_in_button_background"
-            android:text="签到" />
+            android:minWidth="56dip"
+            android:minHeight="36dip"
+            android:text="@string/sign_in"
+            android:textColor="@color/deep_green"
+            android:textSize="14sp"
+            app:backgroundTint="@color/light_green" />
     </LinearLayout>
 
 </RelativeLayout>

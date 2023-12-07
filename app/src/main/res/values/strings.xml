@@ -37,4 +37,16 @@
     <string name="show_7_completion_trend">展示了前7天的完成趋势</string>
     <string name="navigation_drawer_open">打开抽屉式菜单</string>
     <string name="navigation_drawer_close">关闭抽屉式菜单</string>
+    <string name="sign_in">签到</string>
+    <string name="daily_points_number">每日积分数量</string>
+    <string name="show_7_points_number">展示了前7天的积分数量</string>
+    <string name="points_distribution">积分分布</string>
+    <string name="show_7_points_distribution">展示前7天的积分分布情况</string>
+    <string name="example_text">当前为示例数据</string>
+    <string name="data_not_enough">数据量过少，再使用六天吧</string>
+    <string name="completion_tasks">完成任务数</string>
+    <string name="ten">10</string>
+    <string name="compare_to_yesterday">相比昨天</string>
+    <string name="completed_awards">完成奖励数</string>
+    <string name="add_10_percent">+10%</string>
 </resources>
