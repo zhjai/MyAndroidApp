@@ -127,7 +127,7 @@ public class StatisticsFragment extends Fragment {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisRight().setEnabled(false);
-        lineChart.animateXY(1000, 0); // 动画效果
+        lineChart.animateXY(800, 0); // 动画效果
         lineChart.getAxisLeft().enableGridDashedLine(2f, 2f, 0f);
         lineChart.getAxisLeft().setGridColor(Color.GRAY);
 

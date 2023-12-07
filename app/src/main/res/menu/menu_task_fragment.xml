@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_more"
-        android:icon="@drawable/baicai"
+        android:icon="@drawable/ic_more"
         android:title="@string/more"
         app:showAsAction="ifRoom">
         <menu>

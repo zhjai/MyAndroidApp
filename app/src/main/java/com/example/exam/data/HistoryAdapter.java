@@ -40,11 +40,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         holder.historyDate.setText(simpleDateFormat.format(historyItem.getDateTimeMillis()));
         if (historyItem instanceof TaskItem) {
-            holder.historyScore.setTextColor(ContextCompat.getColor(GlobalData.context, R.color.azure));
+            holder.historyScore.setTextColor(ContextCompat.getColor(GlobalData.context, R.color.deep_green));
             holder.historyScore.setText("+" + historyItem.getPoints().toString());
         }
         else {
-            holder.historyScore.setTextColor(ContextCompat.getColor(GlobalData.context, R.color.red));
+            holder.historyScore.setTextColor(ContextCompat.getColor(GlobalData.context, R.color.orange));
             holder.historyScore.setText("-" + historyItem.getPoints().toString());
         }
     }

@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/navigation_task"
-        android:icon="@drawable/baicai"
+        android:icon="@drawable/ic_add_task"
         android:title="@string/title_task" />
 
     <item
         android:id="@+id/navigation_award"
-        android:icon="@drawable/baicai"
+        android:icon="@drawable/ic_add_award"
         android:title="@string/title_award" />
 
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@drawable/baicai"
+        android:icon="@drawable/ic_analytics"
         android:title="@string/title_statistics" />
     <item
         android:id="@+id/navigation_my"
-        android:icon="@drawable/baicai"
+        android:icon="@drawable/ic_my"
         android:title="@string/title_my" />
 
 </menu>

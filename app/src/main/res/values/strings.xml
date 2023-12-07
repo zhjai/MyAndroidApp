@@ -35,4 +35,6 @@
     <string name="history">历史</string>
     <string name="completion_trend">完成趋势</string>
     <string name="show_7_completion_trend">展示了前7天的完成趋势</string>
+    <string name="navigation_drawer_open">打开抽屉式菜单</string>
+    <string name="navigation_drawer_close">关闭抽屉式菜单</string>
 </resources>
