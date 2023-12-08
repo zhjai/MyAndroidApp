@@ -7,4 +7,8 @@ public class TaskItem extends RecyclerItem implements Serializable {
     public TaskItem(String name, Integer points) {
         super(name, points);
     }
+
+    public TaskItem(String name, Integer points, String group) {
+        super(name, points, group);
+    }
 }

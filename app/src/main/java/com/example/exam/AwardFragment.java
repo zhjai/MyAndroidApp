@@ -26,12 +26,8 @@ import com.example.exam.data.SortModeListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AwardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AwardFragment extends Fragment implements SortModeListener {
 
     private RecyclerView recyclerView;
@@ -39,6 +35,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
     private AwardAdapter awardAdapter;
     private AwardDataBank dataBank;
     private ArrayList<AwardItem> awardList = new ArrayList<>();
+    private ArrayList<AwardItem> filteredAwardList = new ArrayList<>();
     private ActivityResultLauncher<Intent> addAwardLauncher;
     private ActivityResultLauncher<Intent> modifyAwardLauncher;
     private boolean isCurrentFragment = false;
@@ -66,6 +63,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     Intent data = result.getData();
                     String awardName = data.getStringExtra("AWARD_NAME");
                     int awardPoints = data.getIntExtra("AWARD_POINTS", -1);
+                    String awardGroup = data.getStringExtra("AWARD_GROUP");
                     for (AwardItem awardItem : awardList) {
                         if (awardItem.getName().equals(awardName)) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -76,9 +74,9 @@ public class AwardFragment extends Fragment implements SortModeListener {
                             return;
                         }
                     }
-                    AwardItem newAward = new AwardItem(awardName, awardPoints);
-                    awardList.add(newAward);
-                    awardAdapter.notifyItemInserted(awardList.size() - 1);
+                    filteredAwardList.add(new AwardItem(awardName, awardPoints, awardGroup));
+                    awardList.add(new AwardItem(awardName, awardPoints, awardGroup));
+                    awardAdapter.notifyItemInserted(filteredAwardList.size() - 1);
                     dataBank.saveObject(awardList);
                     checkIfEmpty();
                 }
@@ -90,12 +88,16 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     // 这里是您处理返回结果的地方
                     Intent data = result.getData();
+                    String oldAwardName = data.getStringExtra("OLD_AWARD_NAME");
                     String awardName = data.getStringExtra("AWARD_NAME");
                     int awardPoints = data.getIntExtra("AWARD_POINTS", -1);
+                    String awardGroup = data.getStringExtra("AWARD_GROUP");
                     int awardPosition = data.getIntExtra("AWARD_POSITION", -1);
-                    awardList.get(awardPosition).setName(awardName);
-                    awardList.get(awardPosition).setPoints(awardPoints);
-                    awardAdapter.notifyItemChanged(awardPosition);
+                    filteredAwardList.get(awardPosition).setName(awardName);
+                    filteredAwardList.get(awardPosition).setPoints(awardPoints);
+                    filteredAwardList.get(awardPosition).setGroup(awardGroup);
+                    modifyAward(oldAwardName, awardName, awardPoints, awardGroup);
+                    setFilteredAwardList();
                     dataBank.saveObject(awardList);
                 }
             }
@@ -111,14 +113,31 @@ public class AwardFragment extends Fragment implements SortModeListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataBank = new AwardDataBank(getContext(), "awards");
         awardList = dataBank.loadObject();
-        awardAdapter = new AwardAdapter(awardList, dataBank);
+        awardAdapter = new AwardAdapter(awardList, filteredAwardList, dataBank);
         recyclerView.setAdapter(awardAdapter);
+        GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), t -> {
+            awardList = dataBank.loadObject();
+            setFilteredAwardList();
+        });
         emptyAwardTextView = rootView.findViewById(R.id.empty_award_text_view);
+        setFilteredAwardList();
         checkIfEmpty();
 
-        TextView pointsTextView = rootView.findViewById(R.id.award_points_text_view);
+        AtomicReference<String> pointsText = new AtomicReference<>("");
+        AtomicReference<String> groupText = new AtomicReference<>("");
+
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
-            pointsTextView.setText("积分：" + points);
+            pointsText.set("积分：" + points);
+            showStatus(pointsText.get(), groupText.get());
+        });
+
+        GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {
+            if (group.equals("全部")) {
+                groupText.set("");
+            } else {
+                groupText.set("分组：" + group);
+            }
+            showStatus(pointsText.get(), groupText.get());
         });
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_award);
@@ -163,7 +182,8 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 builder.setTitle("删除奖励");
                 builder.setMessage("你真的要删除奖励吗？");
                 builder.setPositiveButton("是", (dialog, which) -> {
-                    awardList.remove(position);
+                    deleteAward(awardList.get(position).getName());
+                    filteredAwardList.remove(position);
                     awardAdapter.notifyItemRemoved(position);
                     dataBank.saveObject(awardList);
                 });
@@ -173,8 +193,9 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyAwardActivity.class);
-                intent.putExtra("awardName", awardList.get(position).getName());
-                intent.putExtra("awardPoints", awardList.get(position).getPoints());
+                intent.putExtra("awardName", filteredAwardList.get(position).getName());
+                intent.putExtra("awardPoints", filteredAwardList.get(position).getPoints());
+                intent.putExtra("awardGroup", filteredAwardList.get(position).getGroup());
                 intent.putExtra("awardPosition", position);
                 modifyAwardLauncher.launch(intent);
                 return true;
@@ -204,5 +225,52 @@ public class AwardFragment extends Fragment implements SortModeListener {
         itemTouchHelper.attachToRecyclerView(null);
         awardAdapter.setContextMenuEnabled(true);
         awardAdapter.setSortMode(false);
+    }
+
+    public void showStatus(String pointsText, String groupText) {
+        TextView pointsTextView = getView().findViewById(R.id.award_status_text_view);
+        if (!groupText.equals("")) {
+            pointsTextView.setText(pointsText + "      " + groupText);
+        }
+        else {
+            pointsTextView.setText(pointsText);
+        }
+    }
+
+    public void setFilteredAwardList() {
+        filteredAwardList.clear();
+        for (AwardItem awardItem : awardList) {
+            if (GlobalData.currentGroup.getValue().equals("全部")) {
+                filteredAwardList.add(awardItem);
+            }
+            else if (GlobalData.currentGroup.getValue().equals("未分组") && awardItem.getGroup() == null) {
+                filteredAwardList.add(awardItem);
+            }
+            else if (GlobalData.currentGroup.getValue().equals(awardItem.getGroup())) {
+                filteredAwardList.add(awardItem);
+            }
+        }
+        awardAdapter.notifyDataSetChanged();
+        checkIfEmpty();
+    }
+
+    public void deleteAward(String awardName) {
+        for (int i = 0; i < awardList.size(); i++) {
+            if (awardList.get(i).getName().equals(awardName)) {
+                awardList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void modifyAward(String oldAwardName, String awardName, int awardPoints, String awardGroup) {
+        for (int i = 0; i < awardList.size(); i++) {
+            if (awardList.get(i).getName().equals(oldAwardName)) {
+                awardList.get(i).setName(awardName);
+                awardList.get(i).setPoints(awardPoints);
+                awardList.get(i).setGroup(awardGroup);
+                break;
+            }
+        }
     }
 }

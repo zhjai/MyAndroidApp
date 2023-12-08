@@ -6,10 +6,17 @@ public class RecyclerItem implements Serializable, Comparable<RecyclerItem> {
     String name;
     Integer points;
     long dateTimeMillis;
+    private String group;
 
     public RecyclerItem(String name, Integer points) {
         this.name = name;
         this.points = points;
+    }
+
+    public RecyclerItem(String name, Integer points, String group) {
+        this.name = name;
+        this.points = points;
+        this.group = group;
     }
 
     public String getName() {
@@ -34,6 +41,14 @@ public class RecyclerItem implements Serializable, Comparable<RecyclerItem> {
 
     public void setDateTimeMillis(long dateTimeMillis) {
         this.dateTimeMillis = dateTimeMillis;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     @Override

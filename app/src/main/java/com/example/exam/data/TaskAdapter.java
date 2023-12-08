@@ -17,13 +17,15 @@ import java.util.Collections;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<TaskItem> taskList;
+    private ArrayList<TaskItem> filteredTaskList;
     private TaskDataBank dataBank;
     private TaskDataBank finishedDataBank = new TaskDataBank(GlobalData.context, "finishedTasks");
     private Boolean contextMenuEnabled = true;
     private Boolean isSortMode = false;
 
-    public TaskAdapter(ArrayList<TaskItem> taskList, TaskDataBank dataBank) {
+    public TaskAdapter(ArrayList<TaskItem> taskList, ArrayList<TaskItem> filteredTaskList, TaskDataBank dataBank) {
         this.taskList = taskList;
+        this.filteredTaskList = filteredTaskList;
         this.dataBank = dataBank;
     }
 
@@ -35,9 +37,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TaskItem taskItem = taskList.get(position);
+        TaskItem taskItem = filteredTaskList.get(position);
         holder.textTask.setText(taskItem.getName());
         holder.textScore.setText("+" + taskItem.getPoints().toString());
+        if (taskItem.getGroup() == null) {
+            holder.textGroup.setText("未分组");
+        }
+        else {
+            holder.textGroup.setText(taskItem.getGroup());
+        }
         holder.itemView.setOnCreateContextMenuListener(isSortMode || !contextMenuEnabled ? null : holder);
 
         holder.checkbox.setOnCheckedChangeListener(null);
@@ -47,13 +55,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION) {
-                TaskItem taskItem1 = taskList.get(currentPosition);
+                TaskItem taskItem1 = filteredTaskList.get(currentPosition);
                 if (isChecked) {
                     taskItem1.setDateTimeMillis(System.currentTimeMillis());
                     GlobalData.finishedTasks.add(taskItem1);
                     finishedDataBank.saveObject(GlobalData.finishedTasks);
                     GlobalData.setPoints(GlobalData.getPoints().getValue() + taskItem1.getPoints());
-                    taskList.remove(currentPosition);
+                    deleteTask(taskItem1.getName());
+                    filteredTaskList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(taskList);
                 }
@@ -63,20 +72,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return taskList.size();
+        return filteredTaskList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TaskAdapter adapter;
         TextView textTask;
+        TextView textGroup;
         TextView textScore;
         CheckBox checkbox;
 
         ViewHolder(View view, final TaskAdapter adapter) {
             super(view);
             this.adapter = adapter;
-            textTask = view.findViewById(R.id.history_name);
-            textScore = view.findViewById(R.id.history_score);
+            textTask = view.findViewById(R.id.task_name);
+            textGroup = view.findViewById(R.id.task_group);
+            textScore = view.findViewById(R.id.task_score);
             checkbox = view.findViewById(R.id.checkbox_task);
 
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);
@@ -95,15 +106,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(taskList, i, i + 1);
+                Collections.swap(filteredTaskList, i, i + 1);
             }
         }
         else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(taskList, i, i - 1);
+                Collections.swap(filteredTaskList, i, i - 1);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        moveTask(filteredTaskList.get(fromPosition).getName(), filteredTaskList.get(toPosition).getName());
         dataBank.saveObject(taskList);
     }
 
@@ -115,5 +127,37 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void setSortMode(boolean isSortMode) {
         this.isSortMode = isSortMode;
         notifyDataSetChanged();
+    }
+
+    public void deleteTask(String taskName) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getName().equals(taskName)) {
+                taskList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void moveTask(String fromTaskName, String toTaskName) {
+        int fromPosition = -1;
+        int toPosition = -1;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getName().equals(fromTaskName)) {
+                fromPosition = i;
+            }
+            if (taskList.get(i).getName().equals(toTaskName)) {
+                toPosition = i;
+            }
+        }
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(taskList, i, i + 1);
+            }
+        }
+        else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(taskList, i, i - 1);
+            }
+        }
     }
 }

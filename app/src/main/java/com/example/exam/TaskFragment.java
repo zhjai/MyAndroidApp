@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -20,6 +19,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,9 +55,22 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_task, container, false);
-        TextView pointsTextView = rootView.findViewById(R.id.task_points_text_view);
+
+        AtomicReference<String> pointsText = new AtomicReference<>("");
+        AtomicReference<String> groupText = new AtomicReference<>("");
+
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
-            pointsTextView.setText("积分：" + points);
+            pointsText.set("积分：" + points);
+            showStatus(pointsText.get(), groupText.get());
+        });
+
+        GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {
+            if (group.equals("全部")) {
+                groupText.set("");
+            } else {
+                groupText.set("分组：" + group);
+            }
+            showStatus(pointsText.get(), groupText.get());
         });
         return rootView;
     }
@@ -110,6 +124,16 @@ public class TaskFragment extends Fragment {
         @Override
         public int getItemCount() {
             return fragmentList.size();
+        }
+    }
+
+    public void showStatus(String pointsText, String groupText) {
+        TextView pointsTextView = getView().findViewById(R.id.task_status_text_view);
+        if (!groupText.equals("")) {
+            pointsTextView.setText(pointsText + "      " + groupText);
+        }
+        else {
+            pointsTextView.setText(pointsText);
         }
     }
 }

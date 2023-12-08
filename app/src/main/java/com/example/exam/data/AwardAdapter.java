@@ -20,14 +20,15 @@ import java.util.Collections;
 
 public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     private ArrayList<AwardItem> awardList;
-
+    private ArrayList<AwardItem> filteredAwardList;
     private AwardDataBank dataBank;
     private AwardDataBank finishedDataBank = new AwardDataBank(GlobalData.context, "finishedAwards");
     private Boolean contextMenuEnabled = true;
     private Boolean isSortMode = false;
 
-    public AwardAdapter(ArrayList<AwardItem> awardList, AwardDataBank dataBank) {
+    public AwardAdapter(ArrayList<AwardItem> awardList, ArrayList<AwardItem> filteredAwardList, AwardDataBank dataBank) {
         this.awardList = awardList;
+        this.filteredAwardList = filteredAwardList;
         this.dataBank = dataBank;
     }
 
@@ -42,6 +43,12 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         AwardItem awardItem = awardList.get(position);
         holder.textAward.setText(awardItem.getName());
         holder.textScore.setText("-" + awardItem.getPoints().toString());
+        if (awardItem.getGroup() == null) {
+            holder.textGroup.setText("未分组");
+        }
+        else {
+            holder.textGroup.setText(awardItem.getGroup());
+        }
         holder.itemView.setOnCreateContextMenuListener(isSortMode || !contextMenuEnabled ? null : holder);
 
         holder.checkbox.setOnCheckedChangeListener(null);
@@ -51,7 +58,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION) {
-                AwardItem awardItem1 = awardList.get(currentPosition);
+                AwardItem awardItem1 = filteredAwardList.get(currentPosition);
                 if (isChecked) {
                     if (getPoints().getValue() < awardItem1.getPoints()) {
                         holder.checkbox.setChecked(false);
@@ -66,7 +73,8 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
                     GlobalData.finishedAwards.add(awardItem1);
                     finishedDataBank.saveObject(GlobalData.finishedAwards);
                     GlobalData.setPoints(getPoints().getValue() - awardItem1.getPoints());
-                    awardList.remove(currentPosition);
+                    deleteAward(awardItem1.getName());
+                    filteredAwardList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(awardList);
                 }
@@ -76,20 +84,22 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return awardList.size();
+        return filteredAwardList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         AwardAdapter adapter;
         TextView textAward;
+        TextView textGroup;
         TextView textScore;
         CheckBox checkbox;
 
         ViewHolder(View view, final AwardAdapter adapter) {
             super(view);
             this.adapter = adapter;
-            textAward = view.findViewById(R.id.text_award);
-            textScore = view.findViewById(R.id.text_award_score);
+            textAward = view.findViewById(R.id.award_name);
+            textGroup = view.findViewById(R.id.award_group);
+            textScore = view.findViewById(R.id.award_score);
             checkbox = view.findViewById(R.id.checkbox_award);
 
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);
@@ -108,15 +118,16 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(awardList, i, i + 1);
+                Collections.swap(filteredAwardList, i, i + 1);
             }
         }
         else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(awardList, i, i - 1);
+                Collections.swap(filteredAwardList, i, i - 1);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        moveAward(filteredAwardList.get(fromPosition).getName(), filteredAwardList.get(toPosition).getName());
         dataBank.saveObject(awardList);
     }
 
@@ -128,5 +139,37 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     public void setSortMode(boolean isSortMode) {
         this.isSortMode = isSortMode;
         notifyDataSetChanged();
+    }
+
+    public void deleteAward(String awardName) {
+        for (int i = 0; i < awardList.size(); i++) {
+            if (awardList.get(i).getName().equals(awardName)) {
+                awardList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void moveAward(String fromAwardName, String toAwardName) {
+        int fromPosition = -1;
+        int toPosition = -1;
+        for (int i = 0; i < awardList.size(); i++) {
+            if (awardList.get(i).getName().equals(fromAwardName)) {
+                fromPosition = i;
+            }
+            if (awardList.get(i).getName().equals(toAwardName)) {
+                toPosition = i;
+            }
+        }
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(awardList, i, i + 1);
+            }
+        }
+        else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(awardList, i, i - 1);
+            }
+        }
     }
 }

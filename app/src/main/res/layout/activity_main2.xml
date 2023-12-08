@@ -37,12 +37,60 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view_drawer"
+    <!-- 抽屉菜单 -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/drawer_menu" />
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!-- 抽屉菜单头部布局 -->
+        <include layout="@layout/nav_header_main" />
+
+        <!-- 抽屉菜单的列表 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/group"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/group_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/all"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/group_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/not_group"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/drawer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/add_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/new_group"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

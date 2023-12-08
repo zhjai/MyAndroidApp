@@ -14,3 +14,4 @@ public interface SortModeListener {
 
     void onExitSortMode();
 }
+

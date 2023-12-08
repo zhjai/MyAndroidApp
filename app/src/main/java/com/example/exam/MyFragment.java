@@ -72,14 +72,6 @@ public class MyFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        taskCountTextView.setText("完成任务数\n" + GlobalData.finishedTasks.size());
-        taskPointsTextView.setText("消耗积分\n" + getTaskPoints());
-        awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
-    }
-
     public int getTaskPoints() {
         int points = 0;
         for (TaskItem taskItem : GlobalData.finishedTasks) {

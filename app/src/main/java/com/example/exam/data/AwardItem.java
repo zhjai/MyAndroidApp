@@ -7,4 +7,8 @@ public class AwardItem extends RecyclerItem implements Serializable {
     public AwardItem(String name, Integer points) {
         super(name, points);
     }
+
+    public AwardItem(String name, Integer points, String group) {
+        super(name, points, group);
+    }
 }

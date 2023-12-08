@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.exam.data.DragAndDropTaskCallback;
+import com.example.exam.data.GlobalData;
 import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskAdapter;
 import com.example.exam.data.TaskDataBank;
@@ -39,6 +40,7 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
     private TaskAdapter taskAdapter;
     private TaskDataBank dataBank;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
+    private ArrayList<TaskItem> filteredTaskList = new ArrayList<>();
     private ActivityResultLauncher<Intent> addTaskLauncher;
     private ActivityResultLauncher<Intent> modifyTaskLauncher;
     private boolean isCurrentFragment = false;
@@ -67,6 +69,7 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                             Intent data = result.getData();
                             String taskName = data.getStringExtra("TASK_NAME");
                             int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                            String taskGroup = data.getStringExtra("TASK_GROUP");
                             for (TaskItem taskItem : taskList) {
                                 if (taskItem.getName().equals(taskName)) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -77,9 +80,9 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                                     return;
                                 }
                             }
-                            TaskItem newTask = new TaskItem(taskName, taskPoints);
-                            taskList.add(newTask);
-                            taskAdapter.notifyItemInserted(taskList.size() - 1);
+                            filteredTaskList.add(new TaskItem(taskName, taskPoints, taskGroup));
+                            taskList.add(new TaskItem(taskName, taskPoints, taskGroup));
+                            taskAdapter.notifyItemInserted(filteredTaskList.size() - 1);
                             dataBank.saveObject(taskList);
                             checkIfEmpty();
                         }
@@ -91,12 +94,16 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                             // 这里是您处理返回结果的地方
                             Intent data = result.getData();
+                            String oldTaskName = data.getStringExtra("OLD_TASK_NAME");
                             String taskName = data.getStringExtra("TASK_NAME");
                             int taskPoints = data.getIntExtra("TASK_POINTS", -1);
+                            String taskGroup = data.getStringExtra("TASK_GROUP");
                             int position = data.getIntExtra("TASK_POSITION", -1);
-                            taskList.get(position).setName(taskName);
-                            taskList.get(position).setPoints(taskPoints);
-                            taskAdapter.notifyItemChanged(position);
+                            filteredTaskList.get(position).setName(taskName);
+                            filteredTaskList.get(position).setPoints(taskPoints);
+                            filteredTaskList.get(position).setGroup(taskGroup);
+                            modifyTask(oldTaskName, taskName, taskPoints, taskGroup);
+                            setFilteredTasks();
                             dataBank.saveObject(taskList);
                         }
                     }
@@ -113,9 +120,14 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataBank = new TaskDataBank(getContext(), "normalTasks");
         taskList = dataBank.loadObject();
-        taskAdapter = new TaskAdapter(taskList, dataBank);
+        taskAdapter = new TaskAdapter(taskList, filteredTaskList, dataBank);
         recyclerView.setAdapter(taskAdapter);
+        GlobalData.currentGroup.observe(getViewLifecycleOwner(), t -> {
+            taskList = dataBank.loadObject();
+            setFilteredTasks();
+        });
         emptyTaskTextView = rootView.findViewById(R.id.empty_normal_task_text_view);
+        setFilteredTasks();
         checkIfEmpty();
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_normal_task);
@@ -160,7 +172,8 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                 builder.setTitle("删除任务");
                 builder.setMessage("你真的要删除任务吗？");
                 builder.setPositiveButton("是", (dialog, which) -> {
-                    taskList.remove(position);
+                    deleteTask(filteredTaskList.get(position).getName());
+                    filteredTaskList.remove(position);
                     taskAdapter.notifyItemRemoved(position);
                     dataBank.saveObject(taskList);
                 });
@@ -170,8 +183,9 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyTaskActivity.class);
-                intent.putExtra("taskName", taskList.get(position).getName());
-                intent.putExtra("taskPoints", taskList.get(position).getPoints());
+                intent.putExtra("taskName", filteredTaskList.get(position).getName());
+                intent.putExtra("taskPoints", filteredTaskList.get(position).getPoints());
+                intent.putExtra("taskGroup", filteredTaskList.get(position).getGroup());
                 intent.putExtra("taskPosition", position);
                 modifyTaskLauncher.launch(intent);
                 return true;
@@ -201,5 +215,42 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
         itemTouchHelper.attachToRecyclerView(null);
         taskAdapter.setContextMenuEnabled(true);
         taskAdapter.setSortMode(false);
+    }
+
+    public void setFilteredTasks() {
+        filteredTaskList.clear();
+        for (TaskItem taskItem : taskList) {
+            if (GlobalData.currentGroup.getValue().equals("全部")) {
+                filteredTaskList.add(taskItem);
+            }
+            else if (GlobalData.currentGroup.getValue().equals("未分组") && taskItem.getGroup() == null) {
+                filteredTaskList.add(taskItem);
+            }
+            else if (GlobalData.currentGroup.getValue().equals(taskItem.getGroup())) {
+                filteredTaskList.add(taskItem);
+            }
+        }
+        taskAdapter.notifyDataSetChanged();
+        checkIfEmpty();
+    }
+
+    public void deleteTask(String taskName) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getName().equals(taskName)) {
+                taskList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void modifyTask(String oldtaskName, String taskName, int taskPoints, String taskGroup) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getName().equals(oldtaskName)) {
+                taskList.get(i).setName(taskName);
+                taskList.get(i).setPoints(taskPoints);
+                taskList.get(i).setGroup(taskGroup);
+                break;
+            }
+        }
     }
 }

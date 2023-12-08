@@ -49,4 +49,12 @@
     <string name="compare_to_yesterday">相比昨天</string>
     <string name="completed_awards">完成奖励数</string>
     <string name="add_10_percent">+10%</string>
+    <string name="all">全部</string>
+    <string name="not_group">未分组</string>
+    <string name="new_group">新建分组</string>
+    <string name="delete_group">删除分组</string>
+    <string name="add_group_list">新建分组清单</string>
+    <string name="group_name">清单名称</string>
+    <string name="group">分组</string>
+    <string name="whether_group">是否分组</string>
 </resources>

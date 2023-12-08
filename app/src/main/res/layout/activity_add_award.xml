@@ -21,6 +21,26 @@
 
     <!-- 其他选项和设置可以根据您的需求添加 -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_box_award_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/whether_group" />
+
+        <Spinner
+            android:id="@+id/spinner_award_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/submit_button"
         android:layout_width="match_parent"

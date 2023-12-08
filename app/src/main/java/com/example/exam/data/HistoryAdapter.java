@@ -1,11 +1,8 @@
 package com.example.exam.data;
 
-import android.annotation.SuppressLint;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -15,7 +12,6 @@ import com.example.exam.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder>{
@@ -61,9 +57,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         ViewHolder(View view, final HistoryAdapter adapter) {
             super(view);
-            historyName = view.findViewById(R.id.history_name);
+            historyName = view.findViewById(R.id.task_name);
             historyDate = view.findViewById(R.id.history_date);
-            historyScore = view.findViewById(R.id.history_score);
+            historyScore = view.findViewById(R.id.task_score);
         }
     }
 
