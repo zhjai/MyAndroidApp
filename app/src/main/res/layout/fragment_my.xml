@@ -96,16 +96,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/deep_green"
+            android:background="@color/white"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
+            android:textColor="@color/gray"
             android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/teal_700" />
+            android:background="@color/gray" />
 
         <!-- 消耗积分 -->
         <TextView
@@ -113,16 +113,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/deep_green"
+            android:background="@color/white"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
+            android:textColor="@color/gray"
             android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/teal_700" />
+            android:background="@color/gray" />
 
         <!-- 奖励积分 -->
         <TextView
@@ -130,10 +130,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/deep_green"
+            android:background="@color/white"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
+            android:textColor="@color/gray"
             android:textSize="16sp" />
     </LinearLayout>
 

@@ -12,6 +12,12 @@
         android:title="@string/title_award" />
 
     <item
+        android:id="@+id/navigation_concentrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_timer"
+        android:title="@string/concentrate" />
+    <item
         android:id="@+id/navigation_statistics"
         android:icon="@drawable/ic_analytics"
         android:title="@string/title_statistics" />

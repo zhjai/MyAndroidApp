@@ -14,5 +14,10 @@
     <color name="orange">#FF5722</color> <!-- 橙色 -->
     <color name="deep_green">#11AAAB</color> <!-- 深绿色 -->
     <color name="light_green">#C6E3E3</color>
-    <color name="gray_dark">#4E4E4E</color> <!-- 浅绿色 -->
+    <color name="gray_dark">#4E4E4E</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color> <!-- 浅绿色 -->
+    <color name="gray_white">#F1F0F1</color> <!-- 浅灰色 -->
 </resources>

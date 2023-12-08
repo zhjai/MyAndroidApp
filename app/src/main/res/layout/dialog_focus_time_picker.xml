@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/dialog_text_focus_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="专注时长：25分钟"
+        android:layout_gravity="center_horizontal" />
+
+    <SeekBar
+        android:id="@+id/dialog_seek_bar_focus_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:min="1"
+        android:max="120"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/science_of_25_minutes"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnResetDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恢复默认" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定修改" />
+    </LinearLayout>
+</LinearLayout>

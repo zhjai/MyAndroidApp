@@ -57,4 +57,10 @@
     <string name="group_name">清单名称</string>
     <string name="group">分组</string>
     <string name="whether_group">是否分组</string>
+    <string name="concentrate">专注</string>
+    <string name="tap_to_input_event">轻触输入专注事件</string>
+    <string name="start_concentrate">开始专注</string>
+    <string name="science_of_25_minutes">科学建议：专注时长25分钟，休息时长5分钟</string>
+    <string name="focusing">专注中</string>
+    <string name="today_gain">今日收成 0</string>
 </resources>

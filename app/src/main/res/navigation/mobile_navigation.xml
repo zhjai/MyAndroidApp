@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_award" />
 
     <fragment
+        android:id="@+id/navigation_concentrate"
+        android:name="com.example.exam.ConcentrateFragment"
+        android:label="@string/title_app"
+        tools:layout="@layout/fragment_concentrate" />
+
+    <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.example.exam.StatisticsFragment"
         android:label="@string/title_app"
@@ -39,4 +45,5 @@
             app:popUpTo="@id/navigation_statistics"
             app:popUpToInclusive="false" />
     </fragment>
+
 </navigation>

@@ -24,6 +24,7 @@ import com.example.exam.data.RecyclerItem;
 import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
+import com.example.exam.data.TimerViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -31,6 +32,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -57,6 +59,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     ArrayList<String> groupList;
     DrawerListAdapter drawerListAdapter;
     RecyclerView drawerRecyclerView;
+    private TimerViewModel timerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +100,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_task, R.id.navigation_award, R.id.navigation_statistics, R.id.navigation_my)
+                R.id.navigation_task, R.id.navigation_award, R.id.navigation_concentrate, R.id.navigation_statistics, R.id.navigation_my)
                 .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
@@ -171,6 +174,8 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         drawerListAdapter = new DrawerListAdapter(getLayoutInflater(), groupList);
         drawerListAdapter.setClickListener(this);
         drawerRecyclerView.setAdapter(drawerListAdapter);
+
+        timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
     }
 
     @Override
@@ -370,6 +375,10 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         groupList.add(groupName);
         groupDataBank.saveObject(groupList);
         drawerListAdapter.notifyItemInserted(groupList.size() - 1);
+    }
+
+    public TimerViewModel getTimerViewModel() {
+        return timerViewModel;
     }
 
 }
