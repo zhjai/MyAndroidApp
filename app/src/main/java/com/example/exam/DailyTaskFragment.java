@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 public class DailyTaskFragment extends Fragment implements SortModeListener {
 
     private RecyclerView recyclerView;
-    private TextView emptyTaskTextView;
+    private CardView emptyTaskCardView;
     private TaskAdapter taskAdapter;
     private TaskDataBank dataBank;
     private ArrayList<TaskItem> taskList = new ArrayList<>();
@@ -121,7 +122,7 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
             taskList = dataBank.loadObject();
             setFilteredTasks();
         });
-        emptyTaskTextView = rootView.findViewById(R.id.empty_daily_task_text_view);
+        emptyTaskCardView = rootView.findViewById(R.id.empty_daily_task_card_view);
         setFilteredTasks();
         checkIfEmpty();
 
@@ -192,9 +193,9 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
 
     public void checkIfEmpty() {
         if (taskList.isEmpty()) {
-            emptyTaskTextView.setVisibility(View.VISIBLE);
+            emptyTaskCardView.setVisibility(View.VISIBLE);
         } else {
-            emptyTaskTextView.setVisibility(View.GONE);
+            emptyTaskCardView.setVisibility(View.GONE);
         }
     }
 

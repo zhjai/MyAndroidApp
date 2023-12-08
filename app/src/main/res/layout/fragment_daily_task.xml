@@ -25,14 +25,24 @@
         app:backgroundTint="@color/deep_green"
         app:tint="@android:color/white" />
 
-    <TextView
-        android:id="@+id/empty_daily_task_text_view"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/empty_daily_task_card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/add_first_task"
-        android:textSize="18sp"
-        android:visibility="gone" />
+        android:visibility="invisible"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/add_first_task"
+            android:textSize="18sp"
+            android:visibility="visible" />
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

@@ -91,50 +91,66 @@
         android:weightSum="3">
 
         <!-- 完成任务数 -->
-        <TextView
-            android:id="@+id/text_completed_tasks"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/gray"
-            android:textSize="16sp" />
+            app:cardBackgroundColor="#41CCE4"
+            app:cardCornerRadius="8dp">
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray" />
+            <TextView
+                android:id="@+id/text_completed_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:layout_margin="8dp"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
 
         <!-- 消耗积分 -->
-        <TextView
-            android:id="@+id/text_task_points"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/gray"
-            android:textSize="16sp" />
+            app:cardBackgroundColor="@color/deep_green"
+            app:cardCornerRadius="8dp">
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray" />
+            <TextView
+                android:id="@+id/text_task_points"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:layout_margin="8dp"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
 
         <!-- 奖励积分 -->
-        <TextView
-            android:id="@+id/text_award_points"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/gray"
-            android:textSize="16sp" />
+            app:cardBackgroundColor="@color/orange"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/text_award_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:layout_margin="8dp"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <!-- ListView -->
