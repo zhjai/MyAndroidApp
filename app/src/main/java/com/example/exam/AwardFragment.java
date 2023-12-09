@@ -26,6 +26,7 @@ import com.example.exam.data.SortModeListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AwardFragment extends Fragment implements SortModeListener {
@@ -64,6 +65,8 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     String awardName = data.getStringExtra("AWARD_NAME");
                     int awardPoints = data.getIntExtra("AWARD_POINTS", -1);
                     String awardGroup = data.getStringExtra("AWARD_GROUP");
+                    Date date = (Date) data.getSerializableExtra("AWARD_DATE");
+                    awardList = dataBank.loadObject();
                     for (AwardItem awardItem : awardList) {
                         if (awardItem.getName().equals(awardName)) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -74,8 +77,8 @@ public class AwardFragment extends Fragment implements SortModeListener {
                             return;
                         }
                     }
-                    filteredAwardList.add(new AwardItem(awardName, awardPoints, awardGroup));
-                    awardList.add(new AwardItem(awardName, awardPoints, awardGroup));
+                    filteredAwardList.add(new AwardItem(awardName, awardPoints, awardGroup, date));
+                    awardList.add(new AwardItem(awardName, awardPoints, awardGroup, date));
                     awardAdapter.notifyItemInserted(filteredAwardList.size() - 1);
                     dataBank.saveObject(awardList);
                     checkIfEmpty();
@@ -92,11 +95,14 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     String awardName = data.getStringExtra("AWARD_NAME");
                     int awardPoints = data.getIntExtra("AWARD_POINTS", -1);
                     String awardGroup = data.getStringExtra("AWARD_GROUP");
+                    Date date = (Date) data.getSerializableExtra("AWARD_DATE");
                     int awardPosition = data.getIntExtra("AWARD_POSITION", -1);
+                    awardList = dataBank.loadObject();
                     filteredAwardList.get(awardPosition).setName(awardName);
                     filteredAwardList.get(awardPosition).setPoints(awardPoints);
                     filteredAwardList.get(awardPosition).setGroup(awardGroup);
-                    modifyAward(oldAwardName, awardName, awardPoints, awardGroup);
+                    filteredAwardList.get(awardPosition).setDate(date);
+                    modifyAward(oldAwardName, awardName, awardPoints, awardGroup, date);
                     setFilteredAwardList();
                     dataBank.saveObject(awardList);
                 }
@@ -196,6 +202,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 intent.putExtra("awardName", filteredAwardList.get(position).getName());
                 intent.putExtra("awardPoints", filteredAwardList.get(position).getPoints());
                 intent.putExtra("awardGroup", filteredAwardList.get(position).getGroup());
+                intent.putExtra("awardDate", filteredAwardList.get(position).getDate());
                 intent.putExtra("awardPosition", position);
                 modifyAwardLauncher.launch(intent);
                 return true;
@@ -263,12 +270,13 @@ public class AwardFragment extends Fragment implements SortModeListener {
         }
     }
 
-    public void modifyAward(String oldAwardName, String awardName, int awardPoints, String awardGroup) {
+    public void modifyAward(String oldAwardName, String awardName, int awardPoints, String awardGroup, Date date) {
         for (int i = 0; i < awardList.size(); i++) {
             if (awardList.get(i).getName().equals(oldAwardName)) {
                 awardList.get(i).setName(awardName);
                 awardList.get(i).setPoints(awardPoints);
                 awardList.get(i).setGroup(awardGroup);
+                awardList.get(i).setDate(date);
                 break;
             }
         }

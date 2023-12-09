@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -25,6 +26,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
     private AwardDataBank finishedDataBank = new AwardDataBank(GlobalData.context, "finishedAwards");
     private Boolean contextMenuEnabled = true;
     private Boolean isSortMode = false;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd");
 
     public AwardAdapter(ArrayList<AwardItem> awardList, ArrayList<AwardItem> filteredAwardList, AwardDataBank dataBank) {
         this.awardList = awardList;
@@ -40,7 +42,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(AwardAdapter.ViewHolder holder, int position) {
-        AwardItem awardItem = awardList.get(position);
+        AwardItem awardItem = filteredAwardList.get(position);
         holder.textAward.setText(awardItem.getName());
         holder.textScore.setText("-" + awardItem.getPoints().toString());
         if (awardItem.getGroup() == null) {
@@ -49,6 +51,13 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         else {
             holder.textGroup.setText(awardItem.getGroup());
         }
+        if (awardItem.getDate() == null) {
+            holder.textDate.setText("无日期");
+        }
+        else {
+            holder.textDate.setText(simpleDateFormat.format(awardItem.getDate()));
+        }
+
         holder.itemView.setOnCreateContextMenuListener(isSortMode || !contextMenuEnabled ? null : holder);
 
         holder.checkbox.setOnCheckedChangeListener(null);
@@ -92,6 +101,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
         TextView textAward;
         TextView textGroup;
         TextView textScore;
+        TextView textDate;
         CheckBox checkbox;
 
         ViewHolder(View view, final AwardAdapter adapter) {
@@ -100,6 +110,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
             textAward = view.findViewById(R.id.award_name);
             textGroup = view.findViewById(R.id.award_group);
             textScore = view.findViewById(R.id.award_score);
+            textDate = view.findViewById(R.id.award_date);
             checkbox = view.findViewById(R.id.checkbox_award);
 
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);

@@ -23,6 +23,13 @@ public class RecyclerItem implements Serializable, Comparable<RecyclerItem> {
         this.group = group;
     }
 
+    public RecyclerItem(String name, Integer points, String group, Date date) {
+        this.name = name;
+        this.points = points;
+        this.group = group;
+        this.date = date;
+    }
+
     public RecyclerItem(String name, Integer points, String group, Date date, int importance) {
         this.name = name;
         this.points = points;
