@@ -73,4 +73,5 @@
     <string name="normal">一般</string>
     <string name="important">重要</string>
     <string name="urgant">紧急</string>
+    <string name="points">当前积分</string>
 </resources>

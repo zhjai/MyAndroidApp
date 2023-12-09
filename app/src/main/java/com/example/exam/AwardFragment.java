@@ -115,6 +115,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_award, container, false);
+        TextView statusTextView = rootView.findViewById(R.id.award_status_text_view);
         recyclerView = rootView.findViewById(R.id.award_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataBank = new AwardDataBank(getContext(), "awards");
@@ -132,18 +133,8 @@ public class AwardFragment extends Fragment implements SortModeListener {
         AtomicReference<String> pointsText = new AtomicReference<>("");
         AtomicReference<String> groupText = new AtomicReference<>("");
 
-        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
-            pointsText.set("积分：" + points);
-            showStatus(pointsText.get(), groupText.get());
-        });
-
         GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {
-            if (group.equals("全部")) {
-                groupText.set("");
-            } else {
-                groupText.set("分组：" + group);
-            }
-            showStatus(pointsText.get(), groupText.get());
+            statusTextView.setText("分组：" + group);
         });
 
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab_add_award);
@@ -232,16 +223,6 @@ public class AwardFragment extends Fragment implements SortModeListener {
         itemTouchHelper.attachToRecyclerView(null);
         awardAdapter.setContextMenuEnabled(true);
         awardAdapter.setSortMode(false);
-    }
-
-    public void showStatus(String pointsText, String groupText) {
-        TextView pointsTextView = getView().findViewById(R.id.award_status_text_view);
-        if (!groupText.equals("")) {
-            pointsTextView.setText(pointsText + "      " + groupText);
-        }
-        else {
-            pointsTextView.setText(pointsText);
-        }
     }
 
     public void setFilteredAwardList() {

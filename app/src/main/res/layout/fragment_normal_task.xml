@@ -7,6 +7,7 @@
     tools:context=".NormalTaskFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/normal_task_recycler_view"
         android:layout_width="match_parent"
@@ -24,6 +25,45 @@
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/deep_green"
         app:tint="@android:color/white" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="72dp"
+        app:cardBackgroundColor="@color/light_green"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_sports_score"
+                android:text="@string/points"
+                android:textColor="@color/deep_green"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/normal_tasks_total_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:text="1000"
+                android:textColor="@color/deep_green"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/empty_normal_task_text_view"

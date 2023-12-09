@@ -56,21 +56,10 @@ public class TaskFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_task, container, false);
 
-        AtomicReference<String> pointsText = new AtomicReference<>("");
-        AtomicReference<String> groupText = new AtomicReference<>("");
-
-        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
-            pointsText.set("积分：" + points);
-            showStatus(pointsText.get(), groupText.get());
-        });
+        TextView statusTextView = rootView.findViewById(R.id.task_status_text_view);
 
         GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {
-            if (group.equals("全部")) {
-                groupText.set("");
-            } else {
-                groupText.set("分组：" + group);
-            }
-            showStatus(pointsText.get(), groupText.get());
+            statusTextView.setText("分组：" + group);
         });
         return rootView;
     }
@@ -90,7 +79,6 @@ public class TaskFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager2, true,
                 (tab, position) -> tab.setText(titleList.get(position)))
                 .attach();
-
     }
 
     private List<String> initPageTitleList() {
@@ -124,16 +112,6 @@ public class TaskFragment extends Fragment {
         @Override
         public int getItemCount() {
             return fragmentList.size();
-        }
-    }
-
-    public void showStatus(String pointsText, String groupText) {
-        TextView pointsTextView = getView().findViewById(R.id.task_status_text_view);
-        if (!groupText.equals("")) {
-            pointsTextView.setText(pointsText + "      " + groupText);
-        }
-        else {
-            pointsTextView.setText(pointsText);
         }
     }
 }
