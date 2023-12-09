@@ -81,6 +81,7 @@
     <!-- 消息按钮 -->
 
     <!-- 在背景图片下方添加的统计信息 -->
+
     <LinearLayout
         android:id="@+id/statistics_layout"
         android:layout_width="match_parent"
@@ -155,10 +156,59 @@
 
     <!-- ListView -->
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/vip_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statistics_layout"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_hint"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="开通高级账户"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="解锁全部特权，特惠活动进行时" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_open_vip"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F5D8B0"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/open_now"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/statistics_layout"
+        android:layout_below="@id/vip_card_view"
         android:layout_marginBottom="48dp"
         android:padding="16dp">
 
@@ -226,8 +276,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_margin="8dp"
                 android:padding="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
