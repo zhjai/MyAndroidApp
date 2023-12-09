@@ -64,6 +64,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Exam);
 
         TaskDataBank taskDataBank = new TaskDataBank(this, "finishedTasks");
         AwardDataBank awardDataBank = new AwardDataBank(this, "finishedAwards");

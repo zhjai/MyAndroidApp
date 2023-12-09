@@ -19,5 +19,11 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color> <!-- 浅绿色 -->
-    <color name="gray_white">#F1F0F1</color> <!-- 浅灰色 -->
+    <color name="gray_white">#F1F0F1</color>
+    <color name="task_green">#80FFEC</color> <!-- 浅灰色 -->
+    <color name="yellow">#FFFF00</color>
+    <color name="light_orange">#F5928B</color>
+    <color name="light_red">#E57474</color>
+    <color name="gray_hint">#DFDFDF</color>
+    <color name="transparent">#00000000</color>
 </resources>

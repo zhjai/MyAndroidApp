@@ -1,25 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/task_name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_title"
-        android:inputType="text" />
+    <!--    <EditText-->
+    <!--        android:id="@+id/task_name_edit_text"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="@string/task_title"-->
+    <!--        android:inputType="text" />-->
 
-    <EditText
-        android:id="@+id/task_points_edit_text"
+    <!--    <EditText-->
+    <!--        android:id="@+id/task_points_edit_text"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="@string/task_score"-->
+    <!--        android:inputType="number" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/task_score"
-        android:inputType="number" />
+        android:hint="@string/task_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/task_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_score">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/task_points_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- 其他选项和设置可以根据您的需求添加 -->
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,13 +79,172 @@
             android:layout_weight="1"
             android:enabled="false" />
 
+
     </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/during_date"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/group_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checkable="true"
+                android:text="@string/today"
+                android:textColor="@color/gray"
+                app:checkedIconEnabled="false"
+                app:chipCornerRadius="16dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:checkable="true"
+                android:text="@string/tomorrow"
+                android:textColor="@color/gray"
+                app:checkedIconEnabled="false"
+                app:chipCornerRadius="16dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/choose_date"
+                android:textColor="@color/gray"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipIcon="@drawable/ic_calendar"
+                app:closeIconVisible="false" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/no"
+                android:textColor="@color/gray"
+                app:checkedIconEnabled="false" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/importance"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/button_importance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/button_normal"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray_hint"
+                android:gravity="center_horizontal|center_vertical"
+                android:maxWidth="640dp"
+                android:minHeight="24dp"
+                android:text="@string/normal"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                app:rippleColor="@color/gray"
+                app:strokeColor="@color/transparent" />
+
+            <Button
+                android:id="@+id/button_important"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_orange"
+                android:maxWidth="640dp"
+                android:minWidth="24dp"
+                android:minHeight="24dp"
+                android:text="@string/important"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                app:rippleColor="@color/orange"
+                app:strokeColor="@color/transparent" />
+
+            <Button
+                android:id="@+id/button_urgent"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_red"
+                android:maxWidth="640dp"
+                android:minWidth="24dp"
+                android:minHeight="24dp"
+                android:text="@string/urgant"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                app:rippleColor="@color/red"
+                app:strokeColor="@color/transparent" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="match_parent"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
-        android:text="@string/finish" />
+        android:minWidth="200dip"
+        android:text="@string/finish"
+        android:textSize="16sp" />
 
 </LinearLayout>

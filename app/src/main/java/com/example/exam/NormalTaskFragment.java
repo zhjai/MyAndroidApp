@@ -27,6 +27,7 @@ import com.example.exam.data.TaskItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +71,9 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                             String taskName = data.getStringExtra("TASK_NAME");
                             int taskPoints = data.getIntExtra("TASK_POINTS", -1);
                             String taskGroup = data.getStringExtra("TASK_GROUP");
+                            Date date = (Date) data.getSerializableExtra("TASK_DATE");
+                            int importance = data.getIntExtra("TASK_IMPORTANCE", 0);
+                            taskList = dataBank.loadObject();
                             for (TaskItem taskItem : taskList) {
                                 if (taskItem.getName().equals(taskName)) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -80,8 +84,8 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                                     return;
                                 }
                             }
-                            filteredTaskList.add(new TaskItem(taskName, taskPoints, taskGroup));
-                            taskList.add(new TaskItem(taskName, taskPoints, taskGroup));
+                            filteredTaskList.add(new TaskItem(taskName, taskPoints, taskGroup, date, importance));
+                            taskList.add(new TaskItem(taskName, taskPoints, taskGroup, date, importance));
                             taskAdapter.notifyItemInserted(filteredTaskList.size() - 1);
                             dataBank.saveObject(taskList);
                             checkIfEmpty();
@@ -98,11 +102,16 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                             String taskName = data.getStringExtra("TASK_NAME");
                             int taskPoints = data.getIntExtra("TASK_POINTS", -1);
                             String taskGroup = data.getStringExtra("TASK_GROUP");
+                            Date date = (Date) data.getSerializableExtra("TASK_DATE");
+                            int importance = data.getIntExtra("TASK_IMPORTANCE", 0);
                             int position = data.getIntExtra("TASK_POSITION", -1);
+                            taskList = dataBank.loadObject();
                             filteredTaskList.get(position).setName(taskName);
                             filteredTaskList.get(position).setPoints(taskPoints);
                             filteredTaskList.get(position).setGroup(taskGroup);
-                            modifyTask(oldTaskName, taskName, taskPoints, taskGroup);
+                            filteredTaskList.get(position).setDate(date);
+                            filteredTaskList.get(position).setImportance(importance);
+                            modifyTask(oldTaskName, taskName, taskPoints, taskGroup, date, importance);
                             setFilteredTasks();
                             dataBank.saveObject(taskList);
                         }
@@ -186,6 +195,8 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
                 intent.putExtra("taskName", filteredTaskList.get(position).getName());
                 intent.putExtra("taskPoints", filteredTaskList.get(position).getPoints());
                 intent.putExtra("taskGroup", filteredTaskList.get(position).getGroup());
+                intent.putExtra("taskDate", filteredTaskList.get(position).getDate());
+                intent.putExtra("taskImportance", filteredTaskList.get(position).getImportance());
                 intent.putExtra("taskPosition", position);
                 modifyTaskLauncher.launch(intent);
                 return true;
@@ -243,12 +254,14 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
         }
     }
 
-    public void modifyTask(String oldtaskName, String taskName, int taskPoints, String taskGroup) {
+    public void modifyTask(String oldtaskName, String taskName, int taskPoints, String taskGroup, Date date, int importance) {
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getName().equals(oldtaskName)) {
                 taskList.get(i).setName(taskName);
                 taskList.get(i).setPoints(taskPoints);
                 taskList.get(i).setGroup(taskGroup);
+                taskList.get(i).setDate(date);
+                taskList.get(i).setImportance(importance);
                 break;
             }
         }

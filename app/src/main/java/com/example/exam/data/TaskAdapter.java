@@ -10,9 +10,12 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.R;
+import com.google.android.material.chip.Chip;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
@@ -22,6 +25,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private TaskDataBank finishedDataBank = new TaskDataBank(GlobalData.context, "finishedTasks");
     private Boolean contextMenuEnabled = true;
     private Boolean isSortMode = false;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd");
+
 
     public TaskAdapter(ArrayList<TaskItem> taskList, ArrayList<TaskItem> filteredTaskList, TaskDataBank dataBank) {
         this.taskList = taskList;
@@ -46,6 +51,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         else {
             holder.textGroup.setText(taskItem.getGroup());
         }
+        if (taskItem.getDate() == null) {
+            holder.textDate.setText("无日期");
+        }
+        else {
+            holder.textDate.setText(simpleDateFormat.format(taskItem.getDate()));
+        }
+
+        switch (taskItem.getImportance()) {
+            case 0:
+                holder.chipImportance.setText("一般");
+                holder.chipImportance.setChipBackgroundColorResource(R.color.gray);
+                break;
+            case 1:
+                holder.chipImportance.setText("重要");
+                holder.chipImportance.setChipBackgroundColorResource(R.color.orange);
+                break;
+            case 2:
+                holder.chipImportance.setText("紧急");
+                holder.chipImportance.setChipBackgroundColorResource(R.color.red);
+                break;
+            default:
+                holder.chipImportance.setText("一般");
+                holder.chipImportance.setChipBackgroundColorResource(R.color.gray);
+                break;
+        }
+
         holder.itemView.setOnCreateContextMenuListener(isSortMode || !contextMenuEnabled ? null : holder);
 
         holder.checkbox.setOnCheckedChangeListener(null);
@@ -80,6 +111,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         TextView textTask;
         TextView textGroup;
         TextView textScore;
+        TextView textDate;
+        Chip chipImportance;
         CheckBox checkbox;
 
         ViewHolder(View view, final TaskAdapter adapter) {
@@ -88,6 +121,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             textTask = view.findViewById(R.id.task_name);
             textGroup = view.findViewById(R.id.task_group);
             textScore = view.findViewById(R.id.task_score);
+            textDate = view.findViewById(R.id.task_date);
+            chipImportance = view.findViewById(R.id.task_importance);
             checkbox = view.findViewById(R.id.checkbox_task);
 
             view.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) this);

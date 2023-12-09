@@ -63,4 +63,14 @@
     <string name="science_of_25_minutes">科学建议：专注时长25分钟，休息时长5分钟</string>
     <string name="focusing">专注中</string>
     <string name="today_gain">今日收成 0</string>
+    <string name="during_date">持续日期至</string>
+    <string name="today">今天</string>
+    <string name="tomorrow">明天</string>
+    <string name="choose_date">选择日期</string>
+    <string name="no_date">没有日期</string>
+    <string name="no">无</string>
+    <string name="importance">重要程度</string>
+    <string name="normal">一般</string>
+    <string name="important">重要</string>
+    <string name="urgant">紧急</string>
 </resources>
