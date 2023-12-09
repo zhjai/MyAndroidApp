@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.exam.data.TimerViewModel;
 import com.example.exam.view.TimerView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +97,7 @@ public class ConcentrateFragment extends Fragment {
         inputFocusEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("专注事件");
 
                 LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -143,7 +144,7 @@ public class ConcentrateFragment extends Fragment {
                     startFocusButton.setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_stop));
                 }
                 else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
                     builder.setTitle("放弃专注");
                     builder.setMessage("确定要放弃当前的专注吗？");
 
@@ -194,7 +195,7 @@ public class ConcentrateFragment extends Fragment {
     }
 
     private void showFocusTimePickerDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_focus_time_picker, null);
         builder.setView(dialogView);

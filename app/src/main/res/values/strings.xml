@@ -74,4 +74,34 @@
     <string name="important">重要</string>
     <string name="urgant">紧急</string>
     <string name="points">当前积分</string>
+    <string name="help">帮助</string>
+    <string name="about">关于</string>
+    <string name="update">版本更新</string>
+    <string name="share_to_friends">推荐给好友</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="account_and_security">账户与安全</string>
+    <string name="settings_normal">常规</string>
+    <string name="module">功能模块</string>
+    <string name="event">事件</string>
+    <string name="recognition">智能识别</string>
+    <string name="wechat_reminder">微信消息提醒</string>
+    <string name="user_record">用户协议</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="personalized_service">个性化服务</string>
+    <string name="Todo_academy">Todo学院</string>
 </resources>

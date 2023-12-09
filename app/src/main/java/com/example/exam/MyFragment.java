@@ -1,5 +1,6 @@
 package com.example.exam;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,12 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.exam.data.AwardItem;
 import com.example.exam.data.GlobalData;
-import com.example.exam.data.MyFragmentAdapter;
 import com.example.exam.data.TaskItem;
 
 /**
@@ -50,11 +49,6 @@ public class MyFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_my, container, false);
 
-        ListView listView = rootView.findViewById(R.id.my_fragment_list);
-        String[] items = {"帮助", "关于", "版本更新"};
-        MyFragmentAdapter adapter = new MyFragmentAdapter(getContext(), items);
-        listView.setAdapter(adapter);
-
         TextView pointsTextView = rootView.findViewById(R.id.user_points);
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
             pointsTextView.setText("我的积分：" + points);
@@ -68,6 +62,12 @@ public class MyFragment extends Fragment {
 
         awardPointsTextView = rootView.findViewById(R.id.text_award_points);
         awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
+
+        TextView settingsTextView = rootView.findViewById(R.id.settings_account_and_security);
+        settingsTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            startActivity(intent);
+        });
 
         return rootView;
     }

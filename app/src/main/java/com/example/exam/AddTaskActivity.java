@@ -2,6 +2,7 @@ package com.example.exam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +42,11 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         setTitle("添加任务");
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         taskNameEditText = findViewById(R.id.task_name_edit_text);
         taskPointsEditText = findViewById(R.id.task_points_edit_text);
@@ -166,5 +172,15 @@ public class AddTaskActivity extends AppCompatActivity {
                  finish();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // 处理返回按钮的点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // 关闭当前Activity，返回到前一个Activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

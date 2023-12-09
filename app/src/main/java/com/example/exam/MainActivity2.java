@@ -1,5 +1,6 @@
 package com.example.exam;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -41,6 +42,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.databinding.ActivityMain2Binding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -250,6 +252,11 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                 navController.navigate(R.id.historyFragment);
                 return true;
             }
+            else if (item.getItemId() == R.id.action_settings) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
             else if (item.getItemId() == android.R.id.home) {
                 if (isTaskFragmentDisplayed() || isAwardFragmentDisplayed()) {
                     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -272,7 +279,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     @Override
     public void onItemClick(View view, int position) {
         if (view.getId() == R.id.ivDelete) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
             builder.setTitle("删除分组");
             builder.setMessage("确定要删除分组吗？");
             builder.setPositiveButton("确定", (dialog, which) -> {
@@ -334,7 +341,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
 
     private void showAddGroupDialog() {
         // 创建并设置AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_group, null);
         builder.setView(dialogView);
 
@@ -364,7 +371,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     private void addNewGroup(String groupName) {
         for (String group : groupList) {
             if (group.equals(groupName)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                 builder.setTitle("添加失败");
                 builder.setMessage("分组已存在");
                 builder.setPositiveButton("确定", null);
@@ -381,5 +388,4 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     public TimerViewModel getTimerViewModel() {
         return timerViewModel;
     }
-
 }

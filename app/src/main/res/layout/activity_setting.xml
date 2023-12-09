@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/settings_account_and_security"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_security"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/account_and_security"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_settings_blue"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/settings_normal"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_modules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_modules"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/module"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/settings_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_events"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/event"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_recognition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_intelligent_recognition"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/recognition"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_wechat_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_reminder"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/wechat_reminder"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/settings_user_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_document"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/user_record"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_privacy_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_document"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/settings_personalized_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_donut_large"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/personalized_service"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</LinearLayout>

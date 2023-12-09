@@ -25,6 +25,7 @@ import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskAdapter;
 import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
                         taskList = dataBank.loadObject();
                         for (TaskItem taskItem : taskList) {
                             if (taskItem.getName().equals(taskName)) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
                                 builder.setTitle("添加失败");
                                 builder.setMessage("任务已存在");
                                 builder.setPositiveButton("确定", (dialog, which) -> {});
@@ -141,6 +142,11 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
             addTaskLauncher.launch(intent);
         });
 
+        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
+            TextView pointsTextView = rootView.findViewById(R.id.daily_tasks_total_points);
+            pointsTextView.setText(points.toString());
+        });
+
         return rootView;
     }
 
@@ -174,7 +180,7 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
                 addTaskLauncher.launch(intent);
                 return true;
             case 1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
                 builder.setTitle("删除任务");
                 builder.setMessage("你真的要删除任务吗？");
                 builder.setPositiveButton("是", (dialog, which) -> {

@@ -23,6 +23,7 @@ import com.example.exam.data.AwardItem;
 import com.example.exam.data.DragAndDropAwardCallback;
 import com.example.exam.data.GlobalData;
 import com.example.exam.data.SortModeListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     awardList = dataBank.loadObject();
                     for (AwardItem awardItem : awardList) {
                         if (awardItem.getName().equals(awardName)) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
                             builder.setTitle("添加失败");
                             builder.setMessage("奖励已存在");
                             builder.setPositiveButton("确定", (dialog, which) -> {});
@@ -133,6 +134,11 @@ public class AwardFragment extends Fragment implements SortModeListener {
         AtomicReference<String> pointsText = new AtomicReference<>("");
         AtomicReference<String> groupText = new AtomicReference<>("");
 
+        GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
+            TextView pointsTextView = rootView.findViewById(R.id.award_total_points);
+            pointsTextView.setText(points.toString());
+        });
+
         GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {
             statusTextView.setText("分组：" + group);
         });
@@ -175,7 +181,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 addAwardLauncher.launch(intent);
                 return true;
             case 1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
                 builder.setTitle("删除奖励");
                 builder.setMessage("你真的要删除奖励吗？");
                 builder.setPositiveButton("是", (dialog, which) -> {
