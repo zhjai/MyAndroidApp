@@ -17,6 +17,8 @@ import com.example.exam.data.AwardItem;
 import com.example.exam.data.GlobalData;
 import com.example.exam.data.TaskItem;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MyFragment#newInstance} factory method to
@@ -51,6 +53,21 @@ public class MyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_my, container, false);
+
+        CircleImageView profileImageView = rootView.findViewById(R.id.profile_image);
+        profileImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Account_and_Security_Activity.class);
+            startActivity(intent);
+        });
+
+        TextView userNameTextView = rootView.findViewById(R.id.username);
+        GlobalData.getUserName().observe(getViewLifecycleOwner(), userName -> {
+            userNameTextView.setText(userName);
+        });
+        userNameTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Account_and_Security_Activity.class);
+            startActivity(intent);
+        });
 
         TextView pointsTextView = rootView.findViewById(R.id.user_points);
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {

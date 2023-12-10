@@ -16,6 +16,7 @@ public class GlobalData extends ViewModel {
     static public MutableLiveData<String> currentGroup = new MutableLiveData<>("全部");
     static public MutableLiveData<String> currentSortMode = new MutableLiveData<>("");
     static public MutableLiveData<Boolean> isSignedIn = new MutableLiveData<>(false);
+    static public MutableLiveData<String> userName = new MutableLiveData<>("ZHJ");
 
     static public MutableLiveData<Integer> getPoints() {
         return points;
@@ -47,5 +48,13 @@ public class GlobalData extends ViewModel {
 
     static public void setIsSignedIn(Boolean isSignedIn) {
         GlobalData.isSignedIn.setValue(isSignedIn);
+    }
+
+    static public MutableLiveData<String> getUserName() {
+        return userName;
+    }
+
+    static public void setUserName(String userName) {
+        GlobalData.userName.setValue(userName);
     }
 }

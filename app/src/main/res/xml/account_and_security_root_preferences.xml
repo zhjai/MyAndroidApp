@@ -1,0 +1,54 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.exam.AvatarPreference
+        app:key="avatar_preference"
+        app:title="头像" />
+    <EditTextPreference
+        app:defaultValue="ZHJ"
+        app:key="nick_name_preference"
+        app:title="@string/nick_name"
+        app:useSimpleSummaryProvider="true" />
+    <ListPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="secured"
+        android:title="@string/sex"
+        app:entries="@array/sex_entries"
+        app:entryValues="@array/sex_values"
+        app:key="sex_preference"
+        app:useSimpleSummaryProvider="true" />
+
+    <PreferenceCategory>
+
+        <EditTextPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="立即绑定"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/phone_number"
+            app:key="preference_phone_number"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="立即绑定"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/wechat"
+            app:key="preference_wechat"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="立即绑定"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/qq"
+            app:key="preference_qq"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

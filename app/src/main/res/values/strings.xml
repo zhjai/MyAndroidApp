@@ -156,4 +156,11 @@
     <string name="sort_by_name">按照名称排序</string>
     <string name="sort_by_date">按照日期排序</string>
     <string name="sort_by_importance">按照重要程度排序</string>
+    <string name="title_activity_account_and_security">Account_and_Security_Activity</string>
+    <string name="nick_name">昵称</string>
+    <string name="sex">性别</string>
+    <string name="phone_number">手机号</string>
+    <string name="wechat">微信</string>
+    <string name="qq">QQ</string>
+    <string name="avater">头像</string>
 </resources>

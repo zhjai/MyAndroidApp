@@ -39,6 +39,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity2 extends AppCompatActivity implements DrawerListAdapter.ItemClickListener{
 
     private ActivityMain2Binding binding;
@@ -167,6 +169,21 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                CircleImageView profileImageView = findViewById(R.id.drawer_profile_image);
+                profileImageView.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity2.this, Account_and_Security_Activity.class);
+                    startActivity(intent);
+                });
+
+                TextView userNameTextView = findViewById(R.id.drawer_username);
+                GlobalData.getUserName().observe(MainActivity2.this, userName -> {
+                    userNameTextView.setText(userName);
+                });
+                userNameTextView.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity2.this, Account_and_Security_Activity.class);
+                    startActivity(intent);
+                });
+
                 TextView pointsTextView = findViewById(R.id.drawer_user_points);
                 GlobalData.getPoints().observe(MainActivity2.this, points -> {
                     pointsTextView.setText("我的积分：" + (points + (GlobalData.getIsSignedIn().getValue() ? 100 : 0)));
