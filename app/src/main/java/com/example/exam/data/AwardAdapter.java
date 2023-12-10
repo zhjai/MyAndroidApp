@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardAdapter.ViewHolder>{
                     filteredAwardList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(awardList);
+                    Snackbar.make(holder.itemView, "完成一个奖励", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

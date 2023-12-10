@@ -25,6 +25,7 @@ import com.example.exam.data.GlobalData;
 import com.example.exam.data.SortModeListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,6 +84,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     awardAdapter.notifyItemInserted(filteredAwardList.size() - 1);
                     dataBank.saveObject(awardList);
                     checkIfEmpty();
+                    Snackbar.make(recyclerView, "添加一个奖励", Snackbar.LENGTH_LONG).show();
                 }
             }
         );
@@ -106,6 +108,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     modifyAward(oldAwardName, awardName, awardPoints, awardGroup, date);
                     setFilteredAwardList();
                     dataBank.saveObject(awardList);
+                    Snackbar.make(recyclerView, "修改一个奖励", Snackbar.LENGTH_LONG).show();
                 }
             }
         );
@@ -193,6 +196,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                 builder.setNegativeButton("否", (dialog, which) -> {});
                 builder.show();
                 checkIfEmpty();
+                Snackbar.make(recyclerView, "删除一个奖励", Snackbar.LENGTH_LONG).show();
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyAwardActivity.class);

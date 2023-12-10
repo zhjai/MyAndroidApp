@@ -111,6 +111,11 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            boolean isTopLevelDestination = destination.getId() == R.id.navigation_task || destination.getId() == R.id.navigation_award;
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(isTopLevelDestination);
+            }
             invalidateOptionsMenu();
         });
 

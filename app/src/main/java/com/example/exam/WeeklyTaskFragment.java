@@ -26,6 +26,7 @@ import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -85,6 +86,7 @@ public class WeeklyTaskFragment extends Fragment implements SortModeListener {
                             taskAdapter.notifyItemInserted(filteredTaskList.size() - 1);
                             dataBank.saveObject(taskList);
                             checkIfEmpty();
+                            Snackbar.make(recyclerView, "添加一个任务", Snackbar.LENGTH_LONG).show();
                         }
                     }
             );
@@ -110,6 +112,7 @@ public class WeeklyTaskFragment extends Fragment implements SortModeListener {
                             modifyTask(oldTaskName, taskName, taskPoints, taskGroup, date, importance);
                             setFilteredTasks();
                             dataBank.saveObject(taskList);
+                            Snackbar.make(recyclerView, "修改一个任务", Snackbar.LENGTH_LONG).show();
                         }
                     }
             );
@@ -191,6 +194,7 @@ public class WeeklyTaskFragment extends Fragment implements SortModeListener {
                 builder.setNegativeButton("否", (dialog, which) -> {});
                 builder.show();
                 checkIfEmpty();
+                Snackbar.make(recyclerView, "删除一个任务", Snackbar.LENGTH_LONG).show();
                 return true;
             case 2:
                 intent = new Intent(getActivity(), ModifyTaskActivity.class);

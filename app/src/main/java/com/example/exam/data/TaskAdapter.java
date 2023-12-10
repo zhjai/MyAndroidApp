@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.R;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,6 +97,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     filteredTaskList.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
                     dataBank.saveObject(taskList);
+                    Snackbar.make(holder.itemView, "完成一个任务", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
