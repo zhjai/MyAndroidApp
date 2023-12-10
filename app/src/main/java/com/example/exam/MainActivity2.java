@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.exam.data.AwardDataBank;
 import com.example.exam.data.AwardItem;
@@ -281,6 +282,12 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                         currentSortModeListener.onExitSortMode();
                     }
                 }
+                return true;
+            }
+            else if (item.getItemId() == R.id.action_cloud) {
+                Toast.makeText(this, "请开通高级会员", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, VipActivity.class);
+                startActivity(intent);
                 return true;
             }
             else if (item.getItemId() == R.id.action_search) {
