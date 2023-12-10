@@ -8,7 +8,7 @@
     tools:context=".SettingsActivity">
 
     <TextView
-        android:id="@+id/settings_account_and_security"
+        android:id="@+id/fragment_settings_account_and_security"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_effect"

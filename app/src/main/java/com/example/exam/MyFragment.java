@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.exam.data.AwardItem;
 import com.example.exam.data.GlobalData;
@@ -63,10 +64,34 @@ public class MyFragment extends Fragment {
         awardPointsTextView = rootView.findViewById(R.id.text_award_points);
         awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
 
-        TextView settingsTextView = rootView.findViewById(R.id.settings_account_and_security);
+        TextView settingsTextView = rootView.findViewById(R.id.fragment_settings_account_and_security);
         settingsTextView.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SettingsActivity.class);
             startActivity(intent);
+        });
+
+        TextView helpTextView = rootView.findViewById(R.id.fragment_help);
+        helpTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("title", "帮助");
+            intent.putExtra("url", "https://github.com/zhjai/MyAndroidApp");
+            startActivity(intent);
+        });
+
+        TextView updateTextView = rootView.findViewById(R.id.fragment_update);
+        updateTextView.setOnClickListener(v -> {
+            Toast toast = Toast.makeText(getContext(), "已经是最新版本", Toast.LENGTH_SHORT);
+            toast.show();
+        });
+
+        TextView shareTextView = rootView.findViewById(R.id.fragment_share);
+        shareTextView.setOnClickListener(v -> {
+            String link = "https://github.com/zhjai/MyAndroidApp";
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, link);
+
+            startActivity(Intent.createChooser(intent, "分享"));
         });
 
         return rootView;

@@ -258,8 +258,25 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), "排序");
                 return true;
             }
+            else if (item.getItemId() == R.id.action_scan) {
+                Intent intent = new Intent(this, ScanActivity.class);
+                startActivity(intent);
+                return true;
+            }
             else if (item.getItemId() == R.id.action_share) {
-                // 处理分享逻辑
+                String link = "https://github.com/zhjai/MyAndroidApp";
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, link);
+
+                startActivity(Intent.createChooser(intent, "分享"));
+                return true;
+            }
+            else if (item.getItemId() == R.id.action_help) {
+                Intent intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra("title", "帮助");
+                intent.putExtra("url", "https://github.com/zhjai/MyAndroidApp");
+                startActivity(intent);
                 return true;
             }
             else if (item.getItemId() == R.id.action_history) {
