@@ -23,11 +23,13 @@ import com.example.exam.data.AwardItem;
 import com.example.exam.data.DragAndDropAwardCallback;
 import com.example.exam.data.GlobalData;
 import com.example.exam.data.SortModeListener;
+import com.example.exam.data.TaskItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -151,6 +153,31 @@ public class AwardFragment extends Fragment implements SortModeListener {
             Intent intent = new Intent(getActivity(), AddAwardActivity.class);
             addAwardLauncher.launch(intent);
         });
+
+        GlobalData.getCurrentSortMode().observe(getViewLifecycleOwner(), currenSortMode -> {
+            if (currenSortMode == "") return;
+            awardList.sort(new Comparator<AwardItem>() {
+                @Override
+                public int compare(AwardItem o1, AwardItem o2) {
+                    if (currenSortMode == "按照名称排序") return o1.getName().compareTo(o2.getName());
+                    else if (currenSortMode == "按照日期排序") return o1.getDate().compareTo(o2.getDate());
+                    else if (currenSortMode == "按照重要程度排序") return o2.getImportance() - o1.getImportance();
+                    return 0;
+                }
+            });
+            dataBank.saveObject(awardList);
+            filteredAwardList.sort(new Comparator<AwardItem>() {
+                @Override
+                public int compare(AwardItem o1, AwardItem o2) {
+                    if (currenSortMode == "按照名称排序") return o1.getName().compareTo(o2.getName());
+                    else if (currenSortMode == "按照日期排序") return o1.getDate().compareTo(o2.getDate());
+                    else if (currenSortMode == "按照重要程度排序") return o2.getImportance() - o1.getImportance();
+                    return 0;
+                }
+            });
+            awardAdapter.notifyDataSetChanged();
+        });
+
         return rootView;
     }
 

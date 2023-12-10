@@ -70,6 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableStart="@drawable/ic_group_gray"
+            android:drawablePadding="8dp"
             android:text="@string/whether_group" />
 
         <Spinner
@@ -93,18 +95,22 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawablePadding="8dp"
+            android:singleLine="false"
             android:text="@string/during_date"
             android:textColor="@color/black" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/group_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:singleLine="false"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -167,6 +173,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_warning_gray"
+            android:drawablePadding="8dp"
             android:text="@string/importance"
             android:textColor="@color/black" />
 

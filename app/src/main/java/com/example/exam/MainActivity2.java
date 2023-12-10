@@ -54,6 +54,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
     DrawerListAdapter drawerListAdapter;
     RecyclerView drawerRecyclerView;
     private TimerViewModel timerViewModel;
+    BottomSheetDialogFragment bottomSheetDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,19 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         weeklyTaskDataBank = new TaskDataBank(this, "weeklyTasks");
         normalTaskDataBank = new TaskDataBank(this, "normalTasks");
         awardDataBank1 = new AwardDataBank(this, "awards");
+
+        bottomSheetDialogFragment = new BottomSheetDialogFragment();
+        bottomSheetDialogFragment.setBottomSheetListener(text -> {
+            if (text.equals("按照名称排序")) {
+                GlobalData.currentSortMode.setValue("按照名称排序");
+            }
+            else if (text.equals("按照日期排序")) {
+                GlobalData.currentSortMode.setValue("按照日期排序");
+            }
+            else if (text.equals("按照重要程度排序")) {
+                GlobalData.currentSortMode.setValue("按照重要程度排序");
+            }
+        });
 
         int points = 0;
         GlobalData.context = this;
@@ -241,7 +255,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                 return true;
             }
             else if (item.getItemId() == R.id.action_sort_sub) {
-                // 处理排序逻辑
+                bottomSheetDialogFragment.show(getSupportFragmentManager(), "排序");
                 return true;
             }
             else if (item.getItemId() == R.id.action_share) {

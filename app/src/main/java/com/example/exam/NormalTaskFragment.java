@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -152,6 +153,30 @@ public class NormalTaskFragment extends Fragment implements SortModeListener {
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
             TextView pointsTextView = rootView.findViewById(R.id.normal_tasks_total_points);
             pointsTextView.setText(points.toString());
+        });
+
+        GlobalData.getCurrentSortMode().observe(getViewLifecycleOwner(), currenSortMode -> {
+            if (currenSortMode == "") return;
+            taskList.sort(new Comparator<TaskItem>() {
+                @Override
+                public int compare(TaskItem o1, TaskItem o2) {
+                    if (currenSortMode == "按照名称排序") return o1.getName().compareTo(o2.getName());
+                    else if (currenSortMode == "按照日期排序") return o1.getDate().compareTo(o2.getDate());
+                    else if (currenSortMode == "按照重要程度排序") return o2.getImportance() - o1.getImportance();
+                    return 0;
+                }
+            });
+            dataBank.saveObject(taskList);
+            filteredTaskList.sort(new Comparator<TaskItem>() {
+                @Override
+                public int compare(TaskItem o1, TaskItem o2) {
+                    if (currenSortMode == "按照名称排序") return o1.getName().compareTo(o2.getName());
+                    else if (currenSortMode == "按照日期排序") return o1.getDate().compareTo(o2.getDate());
+                    else if (currenSortMode == "按照重要程度排序") return o2.getImportance() - o1.getImportance();
+                    return 0;
+                }
+            });
+            taskAdapter.notifyDataSetChanged();
         });
 
         return rootView;

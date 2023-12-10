@@ -153,4 +153,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="sort_by_name">按照名称排序</string>
+    <string name="sort_by_date">按照日期排序</string>
+    <string name="sort_by_importance">按照重要程度排序</string>
 </resources>
