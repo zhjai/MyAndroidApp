@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -22,6 +23,18 @@ public class SettingsActivity extends AppCompatActivity {
         TextView accountAndSecurity = findViewById(R.id.fragment_settings_account_and_security);
         accountAndSecurity.setOnClickListener(v -> {
             Intent intent = new Intent(this, Account_and_Security_Activity.class);
+            startActivity(intent);
+        });
+
+        TextView normalSettings = findViewById(R.id.settings_normal);
+        normalSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, NormalSettingsActivity.class);
+            startActivity(intent);
+        });
+
+        TextView modulesSettings = findViewById(R.id.settings_modules);
+        modulesSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ModulesActivity.class);
             startActivity(intent);
         });
     }

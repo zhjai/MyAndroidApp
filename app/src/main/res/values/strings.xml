@@ -165,4 +165,10 @@
     <string name="avater">头像</string>
     <string name="free_version">免费版</string>
     <string name="open_premium_account">开通高级账户</string>
+    <string name="title_activity_normal_settings">NormalSettingsActivity</string>
+    <string name="sound_effect">音效</string>
+    <string name="shake">震动</string>
+    <string name="language">语言</string>
+    <string name="title_activity_modules">ModulesActivity</string>
+    <string name="schedule_overview_module">日程概览模块</string>
 </resources>

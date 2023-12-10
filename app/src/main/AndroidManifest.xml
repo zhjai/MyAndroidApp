@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,11 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Exam"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".ModulesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_modules" />
+        <activity
+            android:name=".NormalSettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_normal_settings" />
         <activity
             android:name=".VipActivity"
             android:exported="false"
-            android:label="@string/open_premium_account"/>
+            android:label="@string/open_premium_account" />
         <activity
             android:name=".Account_and_Security_Activity"
             android:exported="false"
@@ -64,7 +72,7 @@
         <activity
             android:name=".MainActivity2"
             android:exported="true"
-            android:label="@string/title_activity_main2" >
+            android:label="@string/title_activity_main2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
