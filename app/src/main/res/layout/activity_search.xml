@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SearchActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:baselineAligned="false"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxStrokeErrorColor="@android:color/holo_red_dark"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterOverflowTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:counterOverflowTextColor="@android:color/holo_red_dark"
+        app:counterTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:cursorErrorColor="@android:color/holo_red_dark"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:errorIconTint="@android:color/holo_red_dark"
+        app:errorTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:errorTextColor="@android:color/holo_red_dark"
+        app:helperTextTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:placeholderTextAppearance="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:prefixTextAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:shapeAppearance="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:startIconDrawable="@drawable/ic_search_gray"
+        app:suffixTextAppearance="@style/TextAppearance.Material3.TitleMedium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:gravity="center_vertical"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:paddingBottom="24dp"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

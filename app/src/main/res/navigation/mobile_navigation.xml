@@ -35,7 +35,7 @@
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
     <fragment
-        android:id="@+id/historyFragment"
+        android:id="@+id/navigation_history"
         android:name="com.example.exam.HistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_history" >

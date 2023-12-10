@@ -1,16 +1,11 @@
 package com.example.exam;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,14 +16,12 @@ import com.example.exam.data.AwardItem;
 import com.example.exam.data.DrawerListAdapter;
 import com.example.exam.data.GlobalData;
 import com.example.exam.data.GroupDataBank;
-import com.example.exam.data.RecyclerItem;
 import com.example.exam.data.SortModeListener;
 import com.example.exam.data.TaskDataBank;
 import com.example.exam.data.TaskItem;
 import com.example.exam.data.TimerViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -43,7 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exam.databinding.ActivityMain2Binding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -111,7 +103,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            boolean isTopLevelDestination = destination.getId() == R.id.navigation_task || destination.getId() == R.id.navigation_award;
+            boolean isTopLevelDestination = destination.getId() == R.id.navigation_task || destination.getId() == R.id.navigation_award || destination.getId() == R.id.navigation_history;
 
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(isTopLevelDestination);
@@ -243,6 +235,11 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                 }
                 return true;
             }
+            else if (item.getItemId() == R.id.action_search) {
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                return true;
+            }
             else if (item.getItemId() == R.id.action_sort_sub) {
                 // 处理排序逻辑
                 return true;
@@ -254,7 +251,7 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
             else if (item.getItemId() == R.id.action_history) {
                 // 跳转到历史Fragment
                 NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
-                navController.navigate(R.id.historyFragment);
+                navController.navigate(R.id.navigation_history);
                 return true;
             }
             else if (item.getItemId() == R.id.action_settings) {

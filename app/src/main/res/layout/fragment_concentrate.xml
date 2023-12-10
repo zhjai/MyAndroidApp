@@ -43,8 +43,8 @@
 
     <com.example.exam.view.TimerView
         android:id="@+id/timer_view"
-        android:layout_width="330dp"
-        android:layout_height="330dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
