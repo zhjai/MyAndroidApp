@@ -163,4 +163,6 @@
     <string name="wechat">微信</string>
     <string name="qq">QQ</string>
     <string name="avater">头像</string>
+    <string name="free_version">免费版</string>
+    <string name="open_premium_account">开通高级账户</string>
 </resources>

@@ -99,6 +99,12 @@ public class MyFragment extends Fragment {
         awardPointsTextView = rootView.findViewById(R.id.text_award_points);
         awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
 
+        Button openVipButton = rootView.findViewById(R.id.button_open_vip);
+        openVipButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), VipActivity.class);
+            startActivity(intent);
+        });
+
         TextView settingsTextView = rootView.findViewById(R.id.fragment_settings_account_and_security);
         settingsTextView.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SettingsActivity.class);
