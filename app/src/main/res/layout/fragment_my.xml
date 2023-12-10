@@ -59,7 +59,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/message_button"
+                android:id="@+id/sign_in_button"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +94,8 @@
             android:layout_below="@id/user_info_layout"
             android:gravity="center"
             android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:weightSum="3">
 
             <!-- 完成任务数 -->
@@ -338,6 +340,7 @@
                         android:paddingEnd="16dp" />
 
                     <LinearLayout
+                        android:id="@+id/fragment_my_academy2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -374,6 +377,7 @@
                         android:layout_marginEnd="16dp" />
 
                     <LinearLayout
+                        android:id="@+id/fragment_my_academy3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

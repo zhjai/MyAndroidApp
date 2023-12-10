@@ -141,7 +141,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
 
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
             TextView pointsTextView = rootView.findViewById(R.id.award_total_points);
-            pointsTextView.setText(points.toString());
+            pointsTextView.setText(points + (GlobalData.getIsSignedIn().getValue() ? 100 : 0) + "");
         });
 
         GlobalData.getCurrentGroup().observe(getViewLifecycleOwner(), group -> {

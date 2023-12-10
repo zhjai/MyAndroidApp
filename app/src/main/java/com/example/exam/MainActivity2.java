@@ -169,8 +169,25 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
             public void onDrawerOpened(View drawerView) {
                 TextView pointsTextView = findViewById(R.id.drawer_user_points);
                 GlobalData.getPoints().observe(MainActivity2.this, points -> {
-                    pointsTextView.setText("我的积分：" + points);
+                    pointsTextView.setText("我的积分：" + (points + (GlobalData.getIsSignedIn().getValue() ? 100 : 0)));
                 });
+
+                Button signInButton = findViewById(R.id.sign_in_button);
+                GlobalData.getIsSignedIn().observe(MainActivity2.this, isSignedIn -> {
+                    pointsTextView.setText("我的积分：" + (GlobalData.getPoints().getValue() + (isSignedIn ? 100 : 0)));
+                    if (isSignedIn) {
+                        signInButton.setText("已签到+100");
+                        signInButton.setEnabled(false);
+                    } else {
+                        signInButton.setText("签到");
+                        signInButton.setEnabled(true);
+                    }
+                });
+                signInButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(MainActivity2.this, SigninActivity.class);
+                    startActivity(intent);
+                });
+
                 invalidateOptionsMenu();
             }
 

@@ -54,7 +54,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/message_button"
+            android:id="@+id/sign_in_button"
             style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

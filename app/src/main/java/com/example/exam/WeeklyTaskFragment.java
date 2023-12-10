@@ -147,7 +147,7 @@ public class WeeklyTaskFragment extends Fragment implements SortModeListener {
 
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
             TextView pointsTextView = rootView.findViewById(R.id.weekly_tasks_total_points);
-            pointsTextView.setText(points.toString());
+            pointsTextView.setText(points + (GlobalData.getIsSignedIn().getValue() ? 100 : 0) + "");
         });
 
         GlobalData.getCurrentSortMode().observe(getViewLifecycleOwner(), currenSortMode -> {

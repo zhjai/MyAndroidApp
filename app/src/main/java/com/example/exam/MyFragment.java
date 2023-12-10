@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +54,23 @@ public class MyFragment extends Fragment {
 
         TextView pointsTextView = rootView.findViewById(R.id.user_points);
         GlobalData.getPoints().observe(getViewLifecycleOwner(), points -> {
-            pointsTextView.setText("我的积分：" + points);
+            pointsTextView.setText("我的积分：" + (points + (GlobalData.getIsSignedIn().getValue() ? 100 : 0)));
+        });
+
+        Button signInButton = rootView.findViewById(R.id.sign_in_button);
+        GlobalData.getIsSignedIn().observe(getViewLifecycleOwner(), isSignedIn -> {
+            pointsTextView.setText("我的积分：" + (GlobalData.getPoints().getValue() + (isSignedIn ? 100 : 0)));
+            if (isSignedIn) {
+                signInButton.setText("已签到+100");
+                signInButton.setEnabled(false);
+            } else {
+                signInButton.setText("签到");
+                signInButton.setEnabled(true);
+            }
+        });
+        signInButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SigninActivity.class);
+            startActivity(intent);
         });
 
         taskCountTextView = rootView.findViewById(R.id.text_completed_tasks);
@@ -92,6 +110,30 @@ public class MyFragment extends Fragment {
             intent.putExtra(Intent.EXTRA_TEXT, link);
 
             startActivity(Intent.createChooser(intent, "分享"));
+        });
+
+        LinearLayout fragmentMyAcademy1 = rootView.findViewById(R.id.fragment_my_academy1);
+        fragmentMyAcademy1.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("title", "如何度过大学的每一天");
+            intent.putExtra("url", "https://zhuanlan.zhihu.com/p/587930552");
+            startActivity(intent);
+        });
+
+        LinearLayout fragmentMyAcademy2 = rootView.findViewById(R.id.fragment_my_academy2);
+        fragmentMyAcademy2.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("title", "大学生的职业生涯规划");
+            intent.putExtra("url", "https://zhuanlan.zhihu.com/p/534387457");
+            startActivity(intent);
+        });
+
+        LinearLayout fragmentMyAcademy3 = rootView.findViewById(R.id.fragment_my_academy3);
+        fragmentMyAcademy3.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra("title", "Android如何入门和进阶");
+            intent.putExtra("url", "https://zhuanlan.zhihu.com/p/658909393");
+            startActivity(intent);
         });
 
         return rootView;
