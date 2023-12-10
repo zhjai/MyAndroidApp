@@ -59,8 +59,10 @@
             android:id="@+id/group_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:layout_marginStart="6dp"
+            android:drawableLeft="@drawable/ic_group_gray"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
             android:text="@string/all"
             android:textSize="16sp" />
 
@@ -68,8 +70,10 @@
             android:id="@+id/group_null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:layout_marginStart="6dp"
+            android:drawableLeft="@drawable/ic_group_off_gray"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
             android:text="@string/not_group"
             android:textSize="16sp" />
 
@@ -83,8 +87,10 @@
             android:id="@+id/add_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:layout_marginStart="6dp"
+            android:drawableLeft="@drawable/ic_add_circle_gray"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
             android:text="@string/new_group"
             android:textSize="16sp" />
 

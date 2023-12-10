@@ -1,220 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginBottom="56dp">
 
-    <!-- 背景图片 -->
-
-    <!-- 头像，将显示在背景图片上方 -->
-    <LinearLayout
-        android:id="@+id/user_info_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/deep_green"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/baicai" />
+        <!-- 背景图片 -->
+
+        <!-- 头像，将显示在背景图片上方 -->
+        <LinearLayout
+            android:id="@+id/user_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/deep_green"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/baicai" />
+
+            <LinearLayout
+                android:id="@+id/user_name_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ajaja"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/user_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/message_button"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/sign_in"
+                android:textColor="@color/deep_green"
+                android:textSize="16sp"
+                app:backgroundTint="@color/light_green" />
+        </LinearLayout>
+
+        <!-- 头像 -->
+
+        <!-- 用户名和级别 -->
+
+        <!-- 认证标识 -->
+        <!--    <ImageView-->
+        <!--        android:id="@+id/verified_icon"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_alignTop="@id/user_info_layout"-->
+        <!--        android:layout_toEndOf="@id/user_info_layout"-->
+        <!--        android:src="@drawable/ic_verified" />-->
+
+        <!-- 消息按钮 -->
+
+        <!-- 在背景图片下方添加的统计信息 -->
 
         <LinearLayout
-            android:id="@+id/user_name_layout"
-            android:layout_width="wrap_content"
+            android:id="@+id/statistics_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:layout_below="@id/user_info_layout"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
+            <!-- 完成任务数 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ajaja"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#41CCE4"
+                app:cardCornerRadius="8dp">
 
-            <TextView
-                android:id="@+id/user_points"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/text_completed_tasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- 消耗积分 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceCaption"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/text_task_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- 奖励积分 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/orange"
+                app:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/text_award_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <!-- ListView -->
 
-        <Button
-            android:id="@+id/message_button"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/sign_in"
-            android:textColor="@color/deep_green"
-            android:textSize="16sp"
-            app:backgroundTint="@color/light_green" />
-    </LinearLayout>
-
-    <!-- 头像 -->
-
-    <!-- 用户名和级别 -->
-
-    <!-- 认证标识 -->
-<!--    <ImageView-->
-<!--        android:id="@+id/verified_icon"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignTop="@id/user_info_layout"-->
-<!--        android:layout_toEndOf="@id/user_info_layout"-->
-<!--        android:src="@drawable/ic_verified" />-->
-
-    <!-- 消息按钮 -->
-
-    <!-- 在背景图片下方添加的统计信息 -->
-
-    <LinearLayout
-        android:id="@+id/statistics_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_info_layout"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <!-- 完成任务数 -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/vip_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#41CCE4"
+            android:layout_below="@id/statistics_layout"
+            android:layout_margin="16dp"
             app:cardCornerRadius="8dp">
-
-            <TextView
-                android:id="@+id/text_completed_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:layout_margin="8dp"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- 消耗积分 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/deep_green"
-            app:cardCornerRadius="8dp">
-
-            <TextView
-                android:id="@+id/text_task_points"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:layout_margin="8dp"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- 奖励积分 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/orange"
-            app:cardCornerRadius="8dp">
-
-            <TextView
-                android:id="@+id/text_award_points"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:layout_margin="8dp"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <!-- ListView -->
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/vip_card_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/statistics_layout"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_hint"
-            android:orientation="horizontal"
-            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@color/gray_hint"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="开通高级账户"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="开通高级账户"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="解锁全部特权，特惠活动进行时" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_open_vip"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#F5D8B0"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/open_now"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="解锁全部特权，特惠活动进行时" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/button_open_vip"
-                style="@style/Widget.Material3.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#F5D8B0"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:text="@string/open_now"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/vip_card_view"
-        android:layout_marginBottom="48dp"
-        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/vip_card_view"
             android:orientation="vertical">
 
             <TextView
@@ -232,7 +232,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/fragment_my_help"
+                android:id="@+id/fragment_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_effect"
@@ -407,6 +407,5 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

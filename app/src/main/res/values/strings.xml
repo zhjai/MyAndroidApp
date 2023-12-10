@@ -105,4 +105,9 @@
     <string name="personalized_service">个性化服务</string>
     <string name="Todo_academy">Todo学院</string>
     <string name="open_now">立即开通</string>
+    <string name="choose_more">多选</string>
+    <string name="cloud_sync">云同步</string>
+    <string name="scan">扫一扫</string>
+    <string name="search">搜索</string>
+    <string name="github_web">Github主页</string>
 </resources>

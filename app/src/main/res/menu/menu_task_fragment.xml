@@ -2,6 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_cloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_cloud_off"
+        android:title="@string/cloud_sync"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_sort"
         android:title="@string/manual_sort"
         app:showAsAction="ifRoom" />
@@ -12,11 +19,43 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
+                android:id="@+id/action_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_search_gray"
+                android:title="@string/search" />
+            <item
                 android:id="@+id/action_sort_sub"
+                android:icon="@drawable/ic_sort_gray"
                 android:title="@string/sort" />
             <item
+                android:id="@+id/action_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_scan_gray"
+                android:title="@string/scan" />
+            <item
                 android:id="@+id/action_share"
+                android:icon="@drawable/ic_share_gray"
                 android:title="@string/share" />
+            <item
+                android:id="@+id/action_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_help_gray"
+                android:title="@string/help" />
+            <item
+                android:id="@+id/action_user_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_document_gray"
+                android:title="@string/user_record" />
+            <item
+                android:id="@+id/action_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_settings_gray"
+                android:title="@string/settings" />
         </menu>
     </item>
 </menu>
