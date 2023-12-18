@@ -31,4 +31,14 @@
         <item>chinese</item>
         <item>english</item>
     </string-array>
+
+    <string-array name="week_start_entries">
+        <item>周一</item>
+        <item>周日</item>
+    </string-array>
+
+    <string-array name="week_start_values">
+        <item>Monday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>

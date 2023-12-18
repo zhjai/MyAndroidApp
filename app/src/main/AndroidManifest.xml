@@ -21,13 +21,33 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UserAgreementActivity"
+            android:exported="false"
+            android:label="@string/user_record" />
+        <activity
+            android:name=".PersonalizedServiceSettingsActivity"
+            android:exported="false"
+            android:label="@string/personalized_service" />
+        <activity
+            android:name=".WechatReminderSettingsActivity"
+            android:exported="false"
+            android:label="@string/wechat_reminder" />
+        <activity
+            android:name=".RecognitionSettingsActivity"
+            android:exported="false"
+            android:label="@string/recognition" />
+        <activity
+            android:name=".EventsSettingsActivity"
+            android:exported="false"
+            android:label="@string/event" />
+        <activity
             android:name=".ModulesActivity"
             android:exported="false"
-            android:label="@string/title_activity_modules" />
+            android:label="@string/module" />
         <activity
             android:name=".NormalSettingsActivity"
             android:exported="false"
-            android:label="@string/title_activity_normal_settings" />
+            android:label="@string/settings_normal" />
         <activity
             android:name=".VipActivity"
             android:exported="false"

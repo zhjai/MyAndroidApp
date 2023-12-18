@@ -7,12 +7,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
-public class ModulesActivity extends AppCompatActivity {
+public class WechatReminderSettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modules_settings_activity);
+        setContentView(R.layout.wechat_reminder_settings_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -28,7 +28,7 @@ public class ModulesActivity extends AppCompatActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.modules_root_preferences, rootKey);
+            setPreferencesFromResource(R.xml.wechat_reminder_root_preferences, rootKey);
         }
     }
 

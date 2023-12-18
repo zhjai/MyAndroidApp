@@ -111,6 +111,7 @@ public class DailyTaskFragment extends Fragment implements SortModeListener {
                         filteredTaskList.get(position).setGroup(taskGroup);
                         filteredTaskList.get(position).setDate(date);
                         filteredTaskList.get(position).setImportance(importance);
+                        taskAdapter.notifyItemChanged(position);
                         modifyTask(oldTaskName, taskName, taskPoints, taskGroup, date, importance);
                         setFilteredTasks();
                         dataBank.saveObject(taskList);

@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:key="personalized_service"
+        app:summaryOff="@string/not_open_personalized"
+        app:summaryOn="@string/open_personalized_service"
+        app:title="@string/personalized_service" />
+
+</PreferenceScreen>

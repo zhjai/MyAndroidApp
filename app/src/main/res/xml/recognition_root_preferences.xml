@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:key="natural_language_recognition"
+        app:summary="创建事件时，对自然语言进行语义识别，自动提取其中的日期和提醒时间。"
+        app:title="@string/natural_language_recognition" />
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:key="auto_remove_date_and_time"
+        app:summary="开启后，将会自动移除识别结果文本中的日期与时间部分。"
+        app:title="@string/auto_remove_date_and_time" />
+
+</PreferenceScreen>

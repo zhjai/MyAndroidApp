@@ -104,7 +104,7 @@
         android:layout_marginBottom="16dp" />
 
     <TextView
-        android:id="@+id/settings_user_record"
+        android:id="@+id/settings_user_agreement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_effect"

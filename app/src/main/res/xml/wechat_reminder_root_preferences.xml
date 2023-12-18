@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:key="bind_wechat"
+        app:summaryOff="@string/not_bind_wechat"
+        app:summaryOn="@string/finish_bind_wechat"
+        app:title="@string/bind_wechat" />
+
+</PreferenceScreen>

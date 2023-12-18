@@ -326,6 +326,11 @@ public class MainActivity2 extends AppCompatActivity implements DrawerListAdapte
                 navController.navigate(R.id.navigation_history);
                 return true;
             }
+            else if (item.getItemId() == R.id.action_user_record) {
+                Intent intent = new Intent(this, UserAgreementActivity.class);
+                startActivity(intent);
+                return true;
+            }
             else if (item.getItemId() == R.id.action_settings) {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);

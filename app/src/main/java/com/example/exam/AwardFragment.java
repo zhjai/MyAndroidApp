@@ -107,6 +107,7 @@ public class AwardFragment extends Fragment implements SortModeListener {
                     filteredAwardList.get(awardPosition).setPoints(awardPoints);
                     filteredAwardList.get(awardPosition).setGroup(awardGroup);
                     filteredAwardList.get(awardPosition).setDate(date);
+                    awardAdapter.notifyItemChanged(awardPosition);
                     modifyAward(oldAwardName, awardName, awardPoints, awardGroup, date);
                     setFilteredAwardList();
                     dataBank.saveObject(awardList);

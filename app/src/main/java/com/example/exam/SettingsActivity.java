@@ -37,6 +37,44 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ModulesActivity.class);
             startActivity(intent);
         });
+
+        TextView eventsSettings = findViewById(R.id.settings_events);
+        eventsSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EventsSettingsActivity.class);
+            startActivity(intent);
+        });
+
+        TextView recognitionSettings = findViewById(R.id.settings_recognition);
+        recognitionSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RecognitionSettingsActivity.class);
+            startActivity(intent);
+        });
+
+        TextView wechatReminderSettings = findViewById(R.id.settings_wechat_reminder);
+        wechatReminderSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, WechatReminderSettingsActivity.class);
+            startActivity(intent);
+        });
+
+        TextView userAgreement = findViewById(R.id.settings_user_agreement);
+        userAgreement.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UserAgreementActivity.class);
+            startActivity(intent);
+        });
+
+        TextView privacyPolicy = findViewById(R.id.settings_privacy_policy);
+        privacyPolicy.setOnClickListener(v -> {
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("title", "隐私政策");
+            intent.putExtra("url", "file:///android_asset/privacy_policy.html");
+            startActivity(intent);
+        });
+
+        TextView personalizedServiceSettings = findViewById(R.id.settings_personalized_service);
+        personalizedServiceSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PersonalizedServiceSettingsActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

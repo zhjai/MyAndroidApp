@@ -1,0 +1,50 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/Day_Todo">
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:title="@string/weekly_view_progress_show"
+            app:key="weekly_view_progress_show" />
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:title="@string/month_calendar_mark_show"
+            app:key="month_calendar_mark_show" />
+        <ListPreference
+            app:defaultValue="Monday"
+            app:entries="@array/week_start_entries"
+            app:entryValues="@array/week_start_values"
+            app:key="week_start"
+            app:title="@string/week_start"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:title="@string/subscribe_calendar"
+            app:key="subscribe_calendar" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/events_settings">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="show_completed_events"
+            app:title="@string/show_completed_events" />
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:title="@string/show_completed_delete_line"
+            app:key="show_completed_delete_line" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

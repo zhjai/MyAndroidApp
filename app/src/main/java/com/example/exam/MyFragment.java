@@ -159,6 +159,12 @@ public class MyFragment extends Fragment {
             startActivity(intent);
         });
 
+        TextView aboutTextView = rootView.findViewById(R.id.fragment_my_about);
+        aboutTextView.setOnClickListener(v -> {
+            Toast toast = Toast.makeText(getContext(), "该版权为ZHJ所有，可作教育用途，不可商用", Toast.LENGTH_SHORT);
+            toast.show();
+        });
+
         return rootView;
     }
 
