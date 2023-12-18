@@ -94,10 +94,10 @@ public class MyFragment extends Fragment {
         taskCountTextView.setText("完成任务数\n" + GlobalData.finishedTasks.size());
 
         taskPointsTextView = rootView.findViewById(R.id.text_task_points);
-        taskPointsTextView.setText("消耗积分\n" + getTaskPoints());
+        taskPointsTextView.setText("获得积分\n" + getTaskPoints());
 
         awardPointsTextView = rootView.findViewById(R.id.text_award_points);
-        awardPointsTextView.setText("奖励积分\n" + getAwardPoints());
+        awardPointsTextView.setText("消耗积分\n" + getAwardPoints());
 
         Button openVipButton = rootView.findViewById(R.id.button_open_vip);
         openVipButton.setOnClickListener(v -> {
