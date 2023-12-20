@@ -5,6 +5,21 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="testCompleteTask()">
+        <State />
+      </entry>
+      <entry key="testDeleteTask()">
+        <State />
+      </entry>
+      <entry key="testHistoryRecord()">
+        <State />
+      </entry>
+      <entry key="testModifyTask()">
+        <State />
+      </entry>
+      <entry key="testSearchTask()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
